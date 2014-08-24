@@ -2,7 +2,7 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100%;
-  background: #ff0;
+  background: #000;
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
           box-sizing: border-box;
@@ -93,13 +93,11 @@ body {
           order: 4;
 }
 .header {
-  background-color: #f00;
+  height: 20%;
 }
-.aside-1 {
-  background-color: #00f;
-}
+.aside-1,
 .content {
-  background-color: #000;
+  height: 40%;
 }
 .logo {
   width: 200px;
@@ -115,11 +113,9 @@ body {
     background-size: 400px 400px;
   }
 }
-.aside-2 {
-  background-color: #008000;
-}
+.aside-2,
 .footer {
-  background-color: #ffa500;
+  height: 40%;
 }
 .fade {
   -webkit-transition: opacity 1.5s ease-in;
