@@ -18,13 +18,13 @@ logo.style.opacity = 1
 # logo.classList.add 'fade'
 # logo.style.opacity = 1
 
-defer = (f)->
-  if window.$
-    console.log "jQuery loaded"
-    f()
+defer = (cb, global)->
+  if window[global]
+    console.log global+" loaded"
+    cb()
   else
     setTimeout ()->
-      defer(f)
+      defer(cb, global)
     ,50
 
 downloadJSAtOnload = ->
@@ -36,37 +36,46 @@ downloadJSAtOnload = ->
   element.rel = "stylesheet"
   document.head.appendChild element
 
-  # element = document.createElement "link"
-  # element.href = "splash.css"
-  # element.rel = "stylesheet"
-  # document.head.appendChild element
-
-  element = document.createElement "script"
-  element.src = "lib/jquery.min.js"
-  # element.src = "//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"
-  document.body.appendChild element
-
-  defer cb
-
-cb = ->
-  console.log "inside cb"
-  
-  main = $('.main')
-  main.load "main.html"
-
   element = document.createElement "link"
   element.href = "main.css"
   element.rel = "stylesheet"
   document.head.appendChild element
 
   element = document.createElement "script"
+  element.src = "lib/jquery.min.js"
+  # element.src = "//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"
+  document.body.appendChild element
+
+  defer react, 'jQuery'
+
+react = ->
+  console.log "inside react"
+
+  element = document.createElement "script"
   # element.src = "//cdnjs.cloudflare.com/ajax/libs/react/0.11.1/react.min.js"
   element.src = "lib/react.min.js"
   document.body.appendChild element
 
+  defer reactBootstrap, 'React'
+
+reactBootstrap = ->
+  console.log "inside reactbootstrap"
+
   element = document.createElement "script"
   element.src = "lib/react-bootstrap.min.js"
   document.body.appendChild element
+
+  defer main, 'ReactBootstrap'
+
+main = ->
+  console.log "inside main"
+
+  element = document.createElement "script"
+  element.src = "components/mainNav.js"
+  document.body.appendChild element
+
+  main = $('.main')
+  main.load "main.html"
 
   element = document.createElement "script"
   element.src = "main.js"

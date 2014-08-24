@@ -7,4 +7,5 @@
 cb	splash/splash.coffee	/^cb = ->$/;"	f	lineno:23	object:window	type:function
 defer	splash/splash.coffee	/^defer = (f)->$/;"	f	lineno:4	object:window	type:function
 downloadJSAtOnload	splash/splash.coffee	/^downloadJSAtOnload = ->$/;"	f	lineno:14	object:window	type:function
+handleSelect	components/mainNav.coffee	/^handleSelect = (selectedKey)->$/;"	f	lineno:3	object:window	type:function
 onload	splash/splash.coffee	/^window.onload = ->$/;"	f	lineno:42	object:window	type:function

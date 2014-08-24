@@ -1,4 +1,4 @@
-var cb, defer, downloadJSAtOnload, logo, main, splash, window;
+var defer, downloadJSAtOnload, logo, main, react, reactBootstrap, splash, window;
 
 console.log("splash.coffee loading");
 
@@ -22,13 +22,13 @@ window.setTimeout('1000');
 
 logo.style.opacity = 1;
 
-defer = function(f) {
-  if (window.$) {
-    console.log("jQuery loaded");
-    return f();
+defer = function(cb, global) {
+  if (window[global]) {
+    console.log(global + " loaded");
+    return cb();
   } else {
     return setTimeout(function() {
-      return defer(f);
+      return defer(cb, global);
     }, 50);
   }
 };
@@ -40,27 +40,42 @@ downloadJSAtOnload = function() {
   element.href = "lib/bootstrap.min.css";
   element.rel = "stylesheet";
   document.head.appendChild(element);
-  element = document.createElement("script");
-  element.src = "lib/jquery.min.js";
-  document.body.appendChild(element);
-  return defer(cb);
-};
-
-cb = function() {
-  var element;
-  console.log("inside cb");
-  main = $('.main');
-  main.load("main.html");
   element = document.createElement("link");
   element.href = "main.css";
   element.rel = "stylesheet";
   document.head.appendChild(element);
   element = document.createElement("script");
+  element.src = "lib/jquery.min.js";
+  document.body.appendChild(element);
+  return defer(react, 'jQuery');
+};
+
+react = function() {
+  var element;
+  console.log("inside react");
+  element = document.createElement("script");
   element.src = "lib/react.min.js";
   document.body.appendChild(element);
+  return defer(reactBootstrap, 'React');
+};
+
+reactBootstrap = function() {
+  var element;
+  console.log("inside reactbootstrap");
   element = document.createElement("script");
   element.src = "lib/react-bootstrap.min.js";
   document.body.appendChild(element);
+  return defer(main, 'ReactBootstrap');
+};
+
+main = function() {
+  var element;
+  console.log("inside main");
+  element = document.createElement("script");
+  element.src = "components/mainNav.js";
+  document.body.appendChild(element);
+  main = $('.main');
+  main.load("main.html");
   element = document.createElement("script");
   element.src = "main.js";
   return document.body.appendChild(element);
