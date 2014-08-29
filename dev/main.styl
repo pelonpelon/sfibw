@@ -1,8 +1,72 @@
-@import "css/*"
-@import "css/*"
-@import "css/*"
-@import "css/*"
+@import "../bower_components/bootstrap-stylus/dist/bootstrap.min.css"
 @import "css/*"
 @import "splash/splash"
+
 body, .header, .aside-1, .content, .aside-2, .footer
   background-color: #000
+
+.content 
+  height: 100%
+  position: absolute
+  top: 0
+  width: 100%
+  left: 0
+  @media $laptop
+    position: relative
+
+// mainMenu
+
+.navbar-brand
+  height: 47px
+  font-variant: small-caps
+
+.nav>li
+  font-size: 28px
+  background-color: rgba(0,0,0,.9)
+  @media $retina
+    font-size: 30px
+    background-color: rgba(0,0,0,.9)
+  @media $laptop
+    font-size: 20px
+    background-color: rgba(0,0,0,.9)
+    line-height: 28px
+
+.navbar-nav
+  margin: -1.5px -15px
+  @media $laptop
+    float: none
+
+.navbar-nav>li
+  @media $laptop
+    float: none
+    display: inline-block
+
+// avoid scrollbar
+.navbar-collapse
+  overflow-y: auto
+.navbar-nav>li>a
+  line-height: 18px
+
+.navbar-default .navbar-toggle
+  border-color: transparent;
+  padding-right: 0
+ 
+.navbar-default .navbar-toggle .icon-bar 
+  background-color: rgba(150,150,150,.5)
+  width: 28px
+  height: 2px
+
+// Pages
+
+.page-title
+  font-size: 25px
+  margin-top: 10px
+  margin-bottom: 10px
+  @media $laptop
+    display: none
+  
+.schedule
+  .info
+    margin: 40px auto 0 auto
+    width: 90%
+    

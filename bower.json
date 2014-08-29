@@ -30,6 +30,7 @@
     "requirejs": "~2.1.14",
     "react-bootstrap": "~0.11.1",
     "react": "~0.11.1",
-    "bootstrap": "~3.2.0"
+    "bootstrap": "~3.2.0",
+    "gsap-react-plugin": "~1.0.2"
   }
 }
