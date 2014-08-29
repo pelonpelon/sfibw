@@ -73,7 +73,17 @@ jquery = ->
   # element.src = "//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"
   document.body.appendChild element
 
+<<<<<<< HEAD
+  defer cb
+
+cb = ->
+  console.log "inside cb"
+
+  main = $('.main')
+  main.load "main.html"
+=======
   defer react, 'jQuery'
+>>>>>>> feature/menu
 
 react = ->
   console.log "inside react"

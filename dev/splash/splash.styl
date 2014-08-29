@@ -1,22 +1,24 @@
 // _sprite.style will be imported if there are images in content/spritesrc
 
+$bower = "../../bower_components/bootstrap-stylus/stylus/"
+@import $bower+"variables"
+@import $bower+"mixins/*"
+@import $bower+"normalize"
+@import $bower+"scaffolding"
+@import $bower+"utilities"
+@import $bower+"type"
+
 $retina = 'only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx)'
+$laptop = 'only screen and (min-width: 992px)'
+
+$color-highlight = 'purple'
 
 html
-  overflow-y: hidden
-  overflow-x: hidden
 
 body
   background: #000
-  box-sizing: border-box
-  color: white
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif
-  font-size: 14px
-  line-height: 1.42857143
 
-
-#container
-  position: absolute
+.container-fluid
   height: 100%
   width: 100%
 
@@ -24,246 +26,77 @@ body
   position: absolute
   top: 0
   left: 0
-  display: flex
-  flex-flow: row wrap
   height: 100%
   width: 100%
   text-align: center
   background-color: black
-  font-size: 30px
-
-.splash > *, .main > *
-  flex: 1 100%
 
 .splash
   z-index: -99
+  .loading
+    font-size: 16px
+    line-height: 60px
 
 .main
-  z-index: 0
-
-// .aside
-  // flex: 1 auto
-.content
-  flex: 0 auto
-// .aside-1
-  // order: 1
-.content
-  order: 1
-// .aside-2
-  // order: 3
-.footer
-  order: 2
+  color: purple
+  opacity: 0
+  .loading
+    display: none
 
 .header
-  height: 100px !important
+  height: 6% !important
 
-// .aside-1
+.menu
+  height: 0
 
 .content
-  margin: 0 auto
-  height: 200px
-  @media $retina
-    height: 400px !important
+  height: 100%
+
+.splash .logo
+  opacity: 0
 
 .logo
-  width: 200px
-  height: 200px
-  background-image: url('content/images/sfeagle-logo.png')
-  background-size: 200px 200px
+  width: 100%
+  height: 100%
+  padding: 45% 0
+  background-image: url('content/images/bear-jaws.png')
+  background-size: 100% 100%
+  background-repeat: no-repeat
+  background-color: rgba(0,0,0,.9)
   @media $retina
-    width: 400px !important
-    height: 400px !important
-    background-image: url('content/images/sfeagle-logo2x.png')
-    background-size: 400px 400px
+    padding: 60% 0
+    width: 100% !important
+    height: 100% !important
+    background-image: url('content/images/bear-jaws@2x.png')
+    background-size: 100% 100%
+  @media $laptop
+    padding: 20% 0
 
-// .aside-2
+.main .logo
+  background-image: none
+
+.logotext
+  font-family: 'Laila', serif
+  z-index: 99
+  font-size: 200%
+  margin: -10px auto
+  @media $retina
+    margin: -10px 0
+    font-size: 200%
+  @media $laptop
+    margin: -20px auto
+    font-size: 390%
 
 .footer
   height: 40%
 
-.fade
-   transition: opacity 1.5s ease-in
-
-// Normalize from boostrap
-html {
-  font-family: sans-serif;
-  -webkit-text-size-adjust: 100%;
-      -ms-text-size-adjust: 100%;
-}
-body {
-  margin: 0;
-}
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-main,
-nav,
-section,
-summary {
-  display: block;
-}
-audio,
-canvas,
-progress,
-video {
-  display: inline-block;
-  vertical-align: baseline;
-}
-audio:not([controls]) {
-  display: none;
-  height: 0;
-}
-[hidden],
-template {
-  display: none;
-}
-a {
-  background: transparent;
-}
-a:active,
-a:hover {
-  outline: 0;
-}
-abbr[title] {
-  border-bottom: 1px dotted;
-}
-b,
-strong {
-  font-weight: bold;
-}
-dfn {
-  font-style: italic;
-}
-h1 {
-  margin: .67em 0;
-  font-size: 2em;
-}
-mark {
-  color: #000;
-  background: #ff0;
-}
-small {
-  font-size: 80%;
-}
-sub,
-sup {
-  position: relative;
-  font-size: 75%;
-  line-height: 0;
-  vertical-align: baseline;
-}
-sup {
-  top: -.5em;
-}
-sub {
-  bottom: -.25em;
-}
-img {
-  border: 0;
-}
-svg:not(:root) {
-  overflow: hidden;
-}
-figure {
-  margin: 1em 40px;
-}
-hr {
-  height: 0;
-  -webkit-box-sizing: content-box;
-     -moz-box-sizing: content-box;
-          box-sizing: content-box;
-}
-pre {
-  overflow: auto;
-}
-code,
-kbd,
-pre,
-samp {
-  font-family: monospace, monospace;
-  font-size: 1em;
-}
-button,
-input,
-optgroup,
-select,
-textarea {
-  margin: 0;
-  font: inherit;
-  color: inherit;
-}
-button {
-  overflow: visible;
-}
-button,
-select {
-  text-transform: none;
-}
-button,
-html input[type="button"],
-input[type="reset"],
-input[type="submit"] {
-  -webkit-appearance: button;
-  cursor: pointer;
-}
-button[disabled],
-html input[disabled] {
-  cursor: default;
-}
-button::-moz-focus-inner,
-input::-moz-focus-inner {
-  padding: 0;
-  border: 0;
-}
-input {
-  line-height: normal;
-}
-input[type="checkbox"],
-input[type="radio"] {
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
-  padding: 0;
-}
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  height: auto;
-}
-input[type="search"] {
-  -webkit-box-sizing: content-box;
-     -moz-box-sizing: content-box;
-          box-sizing: content-box;
-  -webkit-appearance: textfield;
-}
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-decoration {
-  -webkit-appearance: none;
-}
-fieldset {
-  padding: .35em .625em .75em;
-  margin: 0 2px;
-  border: 1px solid #c0c0c0;
-}
-legend {
-  padding: 0;
-  border: 0;
-}
-textarea {
-  overflow: auto;
-}
-optgroup {
-  font-weight: bold;
-}
-table {
-  border-spacing: 0;
-  border-collapse: collapse;
-}
-td,
-th {
-  padding: 0;
-}
+.fade1
+   transition: opacity 1s ease-in
+.fade2
+   transition: opacity 2s ease-in
+.fade5
+   transition: opacity 0.5s ease-in
+.opacity1
+  opacity: 1
+.opacity2
+  opacity: 2

@@ -1,4 +1,4 @@
-var cb, defer, downloadJSAtOnload, logo, main, splash, window;
+var defer, downloadJSAtOnload, gsap, jquery, logo, main, mainLoad, mainSetup, react, reactBootstrap, splash, window;
 
 console.log("splash.coffee loading");
 
@@ -8,7 +8,7 @@ main = document.getElementsByClassName('main')[0];
 
 main.style.opacity = 0;
 
-main.classList.add('fade');
+main.classList.add('fade1');
 
 splash = document.getElementsByClassName('splash')[0];
 
@@ -16,19 +16,33 @@ logo = splash.getElementsByClassName('logo')[0];
 
 logo.style.opacity = 0;
 
-logo.classList.add('fade');
+logo.classList.add('fade1');
 
-window.setTimeout('1000');
+logo.addEventListener("transitionend", function() {
+  console.log("logo loaded");
+  return window.logoloaded = true;
+}, false);
 
-logo.style.opacity = 1;
+main.addEventListener("transitionend", function() {
+  var element;
+  console.log("main loaded");
+  element = document.createElement("script");
+  element.src = "components/mainMenu.js";
+  document.body.appendChild(element);
+  return console.log("menu loaded");
+}, false);
 
-defer = function(f) {
-  if (window.$) {
-    console.log("jQuery loaded");
-    return f();
+setTimeout(function() {
+  return logo.style.opacity = 1;
+}, 500);
+
+defer = function(cb, global) {
+  console.log(global);
+  if (window[global]) {
+    return cb();
   } else {
     return setTimeout(function() {
-      return defer(f);
+      return defer(cb, global);
     }, 50);
   }
 };
@@ -37,33 +51,67 @@ downloadJSAtOnload = function() {
   var element;
   console.log("inside dl");
   element = document.createElement("link");
-  element.href = "lib/bootstrap.min.css";
-  element.rel = "stylesheet";
-  document.head.appendChild(element);
-  element = document.createElement("script");
-  element.src = "lib/jquery.min.js";
-  document.body.appendChild(element);
-  return defer(cb);
-};
-
-cb = function() {
-  var element;
-  console.log("inside cb");
-  main = $('.main');
-  main.load("main.html");
-  element = document.createElement("link");
   element.href = "main.css";
   element.rel = "stylesheet";
   document.head.appendChild(element);
+  return jquery();
+};
+
+jquery = function() {
+  var element;
+  console.log("inside jquery");
   element = document.createElement("script");
-  element.src = "lib/react.min.js";
+  element.src = "lib/jquery.min.js";
   document.body.appendChild(element);
+  return defer(react, 'jQuery');
+};
+
+react = function() {
+  var element;
+  console.log("inside react");
+  element = document.createElement("script");
+  element.src = "lib/react.js";
+  document.body.appendChild(element);
+  return defer(reactBootstrap, 'React');
+};
+
+reactBootstrap = function() {
+  var element;
+  console.log("inside reactBootstrap");
   element = document.createElement("script");
   element.src = "lib/react-bootstrap.min.js";
   document.body.appendChild(element);
+  return defer(gsap, 'ReactBootstrap');
+};
+
+gsap = function() {
+  var element, lib, _i, _len, _ref;
+  console.log("inside gsap");
+  _ref = ["lib/jquery.gsap.min.js", "lib/TweenLite.min.js", "lib/EasePack.min.js"];
+  for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+    lib = _ref[_i];
+    element = document.createElement("script");
+    element.src = lib;
+    document.body.appendChild(element);
+  }
+  return defer(mainSetup, 'TweenLite');
+};
+
+mainSetup = function() {
+  console.log("inside mainSetup");
+  main = $('.main');
+  main.load("main.html");
+  return defer(mainLoad, 'logoloaded');
+};
+
+mainLoad = function() {
+  var element;
+  console.log("inside main");
   element = document.createElement("script");
   element.src = "main.js";
-  return document.body.appendChild(element);
+  document.body.appendChild(element);
+  document.getElementsByClassName('main')[0].style.opacity = 1;
+  return console.log("splash.coffee loaded");
 };
 
 if (window.addEventListener) {
@@ -73,7 +121,3 @@ if (window.addEventListener) {
 } else {
   window.onload = downloadJSAtOnload;
 }
-
-window.onload = function() {
-  return console.log("splash.coffee loaded");
-};

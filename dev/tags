@@ -4,7 +4,12 @@
 !_TAG_PROGRAM_NAME	CoffeeTags	//
 !_TAG_PROGRAM_URL	https://github.com/lukaszkorecki/CoffeeTags	/GitHub repository/
 !_TAG_PROGRAM_VERSION	0.2.1	//
-cb	splash/splash.coffee	/^cb = ->$/;"	f	lineno:23	object:window	type:function
-defer	splash/splash.coffee	/^defer = (f)->$/;"	f	lineno:4	object:window	type:function
-downloadJSAtOnload	splash/splash.coffee	/^downloadJSAtOnload = ->$/;"	f	lineno:14	object:window	type:function
-onload	splash/splash.coffee	/^window.onload = ->$/;"	f	lineno:42	object:window	type:function
+defer	splash/splash.coffee	/^defer = (cb, global)->$/;"	f	lineno:49	object:window	type:function
+downloadJSAtOnload	splash/splash.coffee	/^downloadJSAtOnload = ->$/;"	f	lineno:58	object:window	type:function
+gsap	splash/splash.coffee	/^gsap = ->$/;"	f	lineno:97	object:window	type:function
+handleSelect	components/mainNav.coffee	/^handleSelect = (selectedKey)->$/;"	f	lineno:3	object:window	type:function
+jquery	splash/splash.coffee	/^jquery = ->$/;"	f	lineno:68	object:window	type:function
+mainLoad	splash/splash.coffee	/^mainLoad = ->$/;"	f	lineno:119	object:window	type:function
+mainSetup	splash/splash.coffee	/^mainSetup = ->$/;"	f	lineno:111	object:window	type:function
+react	splash/splash.coffee	/^react = ->$/;"	f	lineno:78	object:window	type:function
+reactBootstrap	splash/splash.coffee	/^reactBootstrap = ->$/;"	f	lineno:88	object:window	type:function
