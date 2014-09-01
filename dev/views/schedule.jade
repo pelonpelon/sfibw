@@ -1,8 +1,15 @@
-.schedule
+.page.schedule
   h1.page-title Schedule
-  .info
-  script
-    :coffee
-      element = document.createElement "script"
-      element.src = "components/schedulePanel.js"
-      document.body.appendChild element
+  .schedule-panel
+script
+  :coffee
+    element = document.createElement "link"
+    element.href = "views/schedule.css"
+    element.rel = "stylesheet"
+    document.body.appendChild element
+
+    element = document.createElement "script"
+    element.src = "components/schedulePanel.js"
+    document.body.appendChild element
+
+    console.log "main.html loaded"

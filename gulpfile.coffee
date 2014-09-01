@@ -21,6 +21,7 @@ minifycss   = require 'gulp-minify-css'
 rand        = require 'random-key'
 revall      = require 'gulp-rev-all'
 strip       = require 'gulp-strip-debug'
+concat      = require 'gulp-concat-util'
 log         = gutil.log
 
 gulp.env['development'] = true
@@ -35,37 +36,44 @@ revDir = config.prodDir ? 'build/revisioned/'
 
 # Splash
 gulp.task 'splash-stylus', ->
-  gulp.src splashDir+'splash.styl'
+  gulp.src devDir+'style.styl'
     .pipe stylus(
       'include css': true
+      import: "css/required.styl"
       errors: true
     )
     .pipe gp.autoprefixer '> 1%', 'last 6 version', 'ff 17', 'opera 12.1', 'ios >= 5'
-    .pipe gulp.dest devDir+"splash"
-    .pipe gulpif(gulp.env.development, gulp.dest buildDir)
-    .pipe gulpif(!gulp.env.development, gulp.dest prodDir)
+    .pipe gulp.dest devDir+"css"
 gulp.task 'splash-coffee', ->
-  gulp.src splashDir+'splash.coffee'
+  gulp.src devDir+'loader.coffee'
     .pipe coffee(
       bare:true
     )
-    .pipe gulp.dest devDir+"splash"
+    .pipe gulp.dest devDir+"js"
 gulp.task 'splash-jade', ->
-  gulp.src splashDir+'splash.jade'
+  gulp.src devDir+'index.jade'
     .pipe gp.jade
       locals:
         pageTitle: config.pageTitle || 'MyApp'
         pretty: true
-    .pipe gp.rename 'index.html'
-    .pipe gulpif(gulp.env.development, gulp.dest buildDir)
-    .pipe gulpif(!gulp.env.development, gulp.dest prodDir)
+    .pipe gulp.dest buildDir
 
 gulp.task 'splash', (cb)->
   runSequence ['splash-stylus', 'splash-coffee'], 'splash-jade', cb
 
 # jade
 gulp.task 'jade', ->
-  gulp.src devDir+'**/*.jade', base: devDir
+  gulp.src devDir+'views/**/*.jade', base: devDir
+    .pipe gp.plumber()
+    .pipe gp.jade
+      locals:
+        pageTitle: config.pageTitle || 'MyApp'
+      pretty: true
+    .pipe gulp.dest buildDir
+
+# index
+gulp.task 'index', ->
+  gulp.src devDir+'index.jade', base: devDir
     .pipe gp.plumber()
     .pipe gp.jade
       locals:
@@ -75,14 +83,11 @@ gulp.task 'jade', ->
 
 # coffee
 gulp.task 'coffee', ->
-  gulp.src devDir+'main.coffee'
+  gulp.src devDir+'views/**/*.coffee', base: devDir
     .pipe coffee(
       bare: true
     ).on 'error', gutil.log
-    .pipe(if !gulp.env.development then gp.uglify() else gutil.noop())
-    .pipe gp.rename 'main.js'
-    .pipe gulpif(gulp.env.development, gulp.dest buildDir)
-    .pipe gulpif(!gulp.env.development, gulp.dest prodDir)
+    .pipe gulp.dest buildDir
 
 # React
 gulp.task 'react', ->
@@ -92,21 +97,20 @@ gulp.task 'react', ->
     ).on 'error', gutil.log
     .pipe gp.rename
       extname: ".jsx"
-    .pipe gulp.dest devDir+'components'
+    .pipe gulp.dest devDir
   gulp.src devDir+'components/**/*.jsx', base: devDir
     .pipe gp.react()
-    .pipe gulpif(gulp.env.development, gulp.dest buildDir)
-    .pipe gulpif(!gulp.env.development, gulp.dest prodDir)
+    .pipe gulp.dest buildDir
 
 # stylus
 gulp.task 'stylus', ->
-  gulp.src devDir+'main.styl', base: devDir
+  gulp.src devDir+'views/**/*.styl', base: devDir
     .pipe gp.stylus
       'include css': true
       errors: true
+      import: "../css/required.styl"
     .pipe gp.autoprefixer '> 1%', 'last 6 version', 'ff 17', 'opera 12.1', 'ios >= 5'
-    .pipe gulpif(gulp.env.development, gulp.dest buildDir)
-    .pipe gulpif(!gulp.env.development, gulp.dest prodDir)
+    .pipe gulp.dest buildDir
 
 # Make Sprite
 gulp.task 'mksprite', (cb)->
@@ -136,9 +140,8 @@ gulp.task 'img', ['mksprite'], (cb)->
 
 # copy libs
 gulp.task 'copylibs', ->
-  gulp.src [devDir+'lib/**/*.*'], base: devDir
-    .pipe gulpif(gulp.env.development, gulp.dest buildDir)
-    .pipe gulpif(!gulp.env.development, gulp.dest prodDir)
+  gulp.src [devDir+'lib/**/*', devDir+'content/icons/**/*'], base: devDir
+    .pipe gulp.dest buildDir
 
 # Clean
 gulp.task 'clean', ->
@@ -195,16 +198,6 @@ gulp.task 'revall', ['cleanrev'], (cb)->
   .pipe gulp.dest revDir
   cb()
 
-# Upload to server
-#gulp.task 'upload', (callback)->
-#  gulp.src prodDir+'/**/*',
-#    baseUrl: './'
-#    buffer: false
-#  .pipe gp.sftp
-#    host: config.host
-#    username: config.username
-#    remotePath: config.remotePath
-
 gulp.task 'rsynclab', ->
   remotePath = config.labRemotePath
   log remotePath
@@ -245,80 +238,67 @@ gulp.task 'connect', ->
 
 # Watch
 gulp.task 'watch', ['connect'], ->
+  runall = (tasks...)->
+    log "runall: "+tasks...
+    tasklist = []
+    for task in tasks
+      tasklist.push '"'+task+'"'
+    log "runall: "+tasklist
+    runSequence(tasklist)
+
   gulp.watch [devDir+'**'], read:false, (event) ->
+    log 'watch-----------------------------------'
     fullpath = event.path
     dir = (path.dirname event.path).match(/([^\/]*)\/*$/)[1]
     file = path.basename event.path
+    log "file: "+file
     if file is 'tags'
       return
     ext = path.extname event.path
     log 'path: '+fullpath
-    # log 'dir: '+dir
-    # log 'file: '+file
-    # log 'ext: '+ext
-    # if (path.basename event.path).match(/_.*$/)
-      # log 'watch: skipping '+file
-      # return
-    taskname = null
-    reloadasset = null
-    if dir is 'lib'
-      task1 = 'copylibs'
-      reloadasset = buildDir+'index.html'
-    else if dir is 'splash'
-      log 'splash changes'
-      switch ext
-        # when '.css', '.js', '.html'
-          # log 'watch: skipping '+file
-          # return
-        when '.jade'
+    switch ext
+      when '.jade'
+        if file is 'index.jade'
+          task1 = 'jade'
+      when '.styl'
+        if file is 'style.styl'
           task1 = 'splash'
-          task2 = 'jade'
-          reloadasset = buildDir+'index.html'
-        when '.styl'
+        else if file is 'required.styl'
           task1 = 'splash'
           task2 = 'stylus'
-          reloadasset = "[buildDir+'main.css', buildDir+'index.html']"
-        when '.coffee'
-          task1 = 'splash'
-          task2 = 'coffee'
-          reloadasset = "[buildDir+'main.js', buildDir+'index.html']"
-        when '.jpg', '.jpeg', '.png', '.gif'
-          task1 = 'img'
-          reloadasset = buildDir+"content/images/#{path.basename event.path}"
+          task2 = 'index'
         else
-          return
-    else
-      log 'dev changes'
-      switch ext
-        # when '.css', '.js', '.html'
-          # log 'watch: skipping '+file
-          # return
-        when '.jade'
-          task1 = 'jade'
-          reloadasset = buildDir+'index.html'
-        when '.styl'
           task1 = 'stylus'
-          reloadasset = "[buildDir+'main.css', buildDir+'index.html']"
-        when '.coffee', '.js'
-          task1 = 'coffee'
-          task2 = 'react'
-          reloadasset = "[buildDir+'main.js', buildDir+'index.html']"
-        when '.jsx'
+      when '.coffee'
+        if file is 'loader.coffee'
+          task1 = 'splash'
+        else if dir is 'components'
           task1 = 'react'
-          task2 = 'coffee'
-          reloadasset = "[buildDir+'main.js', buildDir+'index.html']"
-        when '.jpg', '.jpeg', '.png', '.gif'
-          task1 = 'img'
-          reloadasset = buildDir+"content/images/#{path.basename event.path}"
-          log "calling task: img"
         else
-          return
-    gulp.task 'reload', [task1], ->
-      if task2
-        runSequence task2
-      log "reloading: "+reloadasset
-      gulp.src reloadasset
+          task1 = 'coffee'
+      when '.js'
+        if dir is 'lib'
+          task1 = 'copylibs'
+        if file is 'loader.js'
+          task1 = 'index'
+      when '.css'
+        if file is 'style.js'
+          task1 = 'index'
+      when '.jsx'
+        task1 = 'react'
+      when '.jpg', '.jpeg', '.png', '.gif'
+        task1 = 'img'
+      else
+        return
+    gulp.task 'reload', (cb)->
+      if task1? then tasks = [task1] else return
+      if task2? then tasks.push task2
+      if task3? then tasks.push task3
+      log tasks...
+      runSequence tasks...
+      gulp.src buildDir+'index.html'
         .pipe gp.connect.reload()
+      cb()
+    log 'reload----------------------------------'
     gulp.start 'reload'
-    log '----------------------------------'
 

@@ -91,4 +91,4 @@ var panelsInstance = (
     </div>
   );
 
-React.renderComponent(panelsInstance, $('.info')[0]);
+React.renderComponent(panelsInstance, $('.schedule-panel')[0]);
