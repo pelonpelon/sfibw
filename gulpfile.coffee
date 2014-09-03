@@ -37,18 +37,18 @@ revDir = config.prodDir ? 'build/revisioned/'
 # Splash
 gulp.task 'splash-stylus', ->
   gulp.src devDir+'style.styl'
-    .pipe stylus(
+    .pipe stylus
       'include css': true
       import: "css/required.styl"
       errors: true
-    )
+
     .pipe gp.autoprefixer '> 1%', 'last 6 version', 'ff 17', 'opera 12.1', 'ios >= 5'
     .pipe gulp.dest devDir+"css"
 gulp.task 'splash-coffee', ->
   gulp.src devDir+'loader.coffee'
-    .pipe coffee(
+    .pipe coffee
       bare:true
-    )
+
     .pipe gulp.dest devDir+"js"
 gulp.task 'splash-jade', ->
   gulp.src devDir+'index.jade'
@@ -104,7 +104,7 @@ gulp.task 'react', ->
 
 # stylus
 gulp.task 'stylus', ->
-  gulp.src devDir+'views/**/*.styl', base: devDir
+  gulp.src [devDir+'views/**/*.styl'], base: devDir
     .pipe gp.stylus
       'include css': true
       errors: true
@@ -124,18 +124,17 @@ gulp.task 'mksprite', (cb)->
     .pipe gulpif('*.styl', gulp.dest devDir+'css')
     .pipe gulpif('*.styl', gp.ignore.exclude '*.styl')
     .pipe gulpif(gulp.env.development, gulp.dest buildDir+'content/images')
-    .pipe gulpif(!gulp.env.development, gulp.dest prodDir+'content/images')
+    .pipe gulp.dest prodDir+'content/images'
   cb()
 
 # Images
 gulp.task 'img', ['mksprite'], (cb)->
-  gulp.src [devDir+'content/images/**/*.{jpg,jpeg,png,svg,gif}'], base: devDir
+  gulp.src [devDir+'content/**/*.{jpg,jpeg,png,svg,gif}'], base: devDir
     .pipe gp.cache gp.imagemin
       optimizationLevel: 3
       progressive: true
       interlaced: true
-    .pipe gulpif(gulp.env.development, gulp.dest buildDir)
-    .pipe gulpif(!gulp.env.development, gulp.dest prodDir)
+    .pipe gulp.dest buildDir
   cb()
 
 # copy libs
@@ -192,6 +191,7 @@ gulp.task 'revall', ['cleanrev'], (cb)->
       /^\/index.html/g
       /^\/main.html/g
       /^\/content\/images\//g
+      /^\/content\/icons\//g
       /^\/lib\//g
       /^\/views\//g
     ]
@@ -211,7 +211,7 @@ gulp.task 'rsynclab', ->
   , (error, stdout, stderr, cmd)->
       gutil.log stdout
 
-gulp.task 'rsyncwww', ['revall'], ->
+gulp.task 'rsyncwww', ->
   remotePath = config.wwwRemotePath
   log remotePath
   rsync
@@ -228,6 +228,9 @@ gulp.task 'rsyncwww', ['revall'], ->
 gulp.task 'default', ['build'], (cb)->
   runSequence 'watch', cb
 
+gulp.task 'loadindex', ->
+  gulp.src buildDir+'index.html'
+    .pipe gp.connect.reload()
 # Connect
 gulp.task 'connect', ->
   log 'task: connect'
@@ -259,14 +262,14 @@ gulp.task 'watch', ['connect'], ->
     switch ext
       when '.jade'
         if file is 'index.jade'
-          task1 = 'jade'
+          task1 = 'splash'
       when '.styl'
         if file is 'style.styl'
           task1 = 'splash'
         else if file is 'required.styl'
           task1 = 'splash'
           task2 = 'stylus'
-          task2 = 'index'
+          task3 = 'index'
         else
           task1 = 'stylus'
       when '.coffee'
@@ -284,6 +287,9 @@ gulp.task 'watch', ['connect'], ->
       when '.css'
         if file is 'style.js'
           task1 = 'index'
+        if dir is 'anim'
+          task1 = 'splash'
+          task2 = 'stylus'
       when '.jsx'
         task1 = 'react'
       when '.jpg', '.jpeg', '.png', '.gif'
@@ -294,10 +300,8 @@ gulp.task 'watch', ['connect'], ->
       if task1? then tasks = [task1] else return
       if task2? then tasks.push task2
       if task3? then tasks.push task3
-      log tasks...
+      tasks.push 'loadindex'
       runSequence tasks...
-      gulp.src buildDir+'index.html'
-        .pipe gp.connect.reload()
       cb()
     log 'reload----------------------------------'
     gulp.start 'reload'

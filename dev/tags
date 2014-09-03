@@ -4,21 +4,21 @@
 !_TAG_PROGRAM_NAME	CoffeeTags	//
 !_TAG_PROGRAM_URL	https://github.com/lukaszkorecki/CoffeeTags	/GitHub repository/
 !_TAG_PROGRAM_VERSION	0.2.1	//
-animationChain	loader.coffee	/^animationChain = ()->$/;"	f	lineno:14	object:window	type:function
-defer	loader.coffee	/^defer = (cb, global)->$/;"	f	lineno:42	object:window	type:function
+animationChain	loader.coffee	/^animationChain = ()->$/;"	f	lineno:15	object:window	type:function
+defer	loader.coffee	/^defer = (cb, global)->$/;"	f	lineno:46	object:window	type:function
 defer	splash/splash.coffee	/^defer = (cb, global)->$/;"	f	lineno:49	object:window	type:function
-downloadJSAtOnload	loader.coffee	/^downloadJSAtOnload = ->$/;"	f	lineno:51	object:window	type:function
+downloadJSAtOnload	loader.coffee	/^downloadJSAtOnload = ->$/;"	f	lineno:55	object:window	type:function
 downloadJSAtOnload	splash/splash.coffee	/^downloadJSAtOnload = ->$/;"	f	lineno:58	object:window	type:function
+fastClick	loader.coffee	/^fastClick = ->$/;"	f	lineno:113	object:window	type:function
 gsap	splash/splash.coffee	/^gsap = ->$/;"	f	lineno:97	object:window	type:function
 handleSelect	components/mainNav.coffee	/^handleSelect = (selectedKey)->$/;"	f	lineno:3	object:window	type:function
-isJqueryLoaded	loader.coffee	/^  isJqueryLoaded = ->$/;"	f	lineno:69	object:downloadJSAtOnload	type:function
-isMainLoaded	loader.coffee	/^    isMainLoaded = ()->$/;"	f	lineno:25	object:animationChain	type:function
+isJqueryLoaded	loader.coffee	/^  isJqueryLoaded = ->$/;"	f	lineno:73	object:downloadJSAtOnload	type:function
+isReactBootstrapLoaded	loader.coffee	/^    isReactBootstrapLoaded = ->$/;"	f	lineno:35	object:animationChain	type:function
 jquery	splash/splash.coffee	/^jquery = ->$/;"	f	lineno:68	object:window	type:function
-mainLoad	loader.coffee	/^mainLoad = ->$/;"	f	lineno:100	object:window	type:function
 mainLoad	splash/splash.coffee	/^mainLoad = ->$/;"	f	lineno:119	object:window	type:function
-mainRender	loader.coffee	/^mainRender = ->$/;"	f	lineno:111	object:window	type:function
 mainSetup	splash/splash.coffee	/^mainSetup = ->$/;"	f	lineno:111	object:window	type:function
-react	loader.coffee	/^react = ->$/;"	f	lineno:77	object:window	type:function
+react	loader.coffee	/^react = ->$/;"	f	lineno:94	object:window	type:function
 react	splash/splash.coffee	/^react = ->$/;"	f	lineno:78	object:window	type:function
-reactBootstrap	loader.coffee	/^reactBootstrap = ->$/;"	f	lineno:89	object:window	type:function
+reactBootstrap	loader.coffee	/^reactBootstrap = ->$/;"	f	lineno:104	object:window	type:function
 reactBootstrap	splash/splash.coffee	/^reactBootstrap = ->$/;"	f	lineno:88	object:window	type:function
+velocity	loader.coffee	/^velocity = ->$/;"	f	lineno:83	object:window	type:function
