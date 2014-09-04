@@ -1,0 +1,96 @@
+// mainMenu
+
+@require $anim+"fadeIn.css"
+@require $anim+"fadeInUp.css"
+@require $anim+"fadeOutUp.css"
+@require $anim+"fadeDim.css"
+@require $anim+"fadeOut.css"
+
+.navbar-default
+  background: rgba(0,0,0,0.85)
+  border-color: $theme-dark
+
+.navbar-header
+  background-color: $background
+  height: 46px
+
+.navbar-brand
+  height: 50px
+  font-variant: small-caps
+  text-align: left
+  width: 59px
+  padding-right: 34px
+
+.navbar-default .navbar-brand
+.navbar-default .navbar-brand:focus,
+.navbar-default .navbar-brand:hover
+  color: transparent
+  background-color: $brand
+  background-image: url('../content/icons/brand-icon-57x57.png')
+  background-size: 49px 40px
+  border: 5px solid $background
+  background-repeat: no-repeat;
+  background-position: center;
+
+.navbar-title
+  position: absolute
+  top: 0
+  left: 30%
+  width: 36%
+  font-size: 1.6em
+  text-align: center
+  @media $laptop
+    display: none
+
+.navbar-default .navbar-toggle
+  border-color: transparent;
+  width: 59px
+
+.navbar-default .navbar-toggle:focus,
+.navbar-default .navbar-toggle:hover
+  background: transparent
+
+.navbar-default .navbar-toggle .icon-bar
+  float:right
+  clear:right
+  background-color: rgba(200,200,200,.5)
+  width: 28px
+  height: 2px
+
+.navbar-nav
+  margin: 0
+  padding: 0 10%
+  @media $laptop
+    float: none
+    padding-right: 8%
+
+.navbar-collapse
+  margin-left: 0 !important
+  margin-right: 0 !important
+  padding-left: 0
+  padding-right: 0
+  width: 100%
+  background-color: $background
+  border: 0
+
+
+.navbar-nav>li
+  background-color: $background
+  @media $laptop
+    float: none
+    display: inline-block
+
+.navbar-default .navbar-nav>li>a
+  line-height: .8em
+  font-size: 2em
+  color: $titles
+  @media $laptop
+    font-size: 1.5em
+
+.navbar-default .navbar-nav>li>a:hover
+  color: $highlight
+  background-color: $background
+.navbar-default .navbar-nav>li>a:focus, .active
+  color: $highlight
+  background-color: $background
+

@@ -4,36 +4,94 @@ var Nav = ReactBootstrap.Nav;
 var Navbar = ReactBootstrap.Navbar;
 var NavItem = ReactBootstrap.NavItem;
 var renderedInstance;
+var currentKey;
+var main = $('.main');
+$('.main .content').addClass('animated');
+var mainClickSurface = document.getElementsByClassName('main')[0];
+/* FastClick.attach(document.body); */
 
+function fadeContent () {
+
+  var content = $('.main .content');
+  var title = $('.navbar-title');
+  var navbarClickSurface = document.getElementsByClassName('navbar')[0];
+
+  if ($('.in').is(":visible")){
+    console.log('in visible');
+    content.removeClass('fadeIn fadeOut fadeDim');
+    title.removeClass('fadeIn fadeOut fadeDim');
+    content.addClass('fadeIn');
+    title.addClass('fadeIn');
+    /* FastClick.attach(mainClickSurface); */
+
+
+  } else {
+    console.log('not in visible');
+    content.removeClass('fadeDim fadeIn fadeOut');
+    title.removeClass('fadeDim fadeIn fadeOut');
+    content.addClass('fadeDim');
+    title.addClass('fadeDim');
+    /* FastClick.attach(navbarClickSurface); */
+  }
+
+}
 
 function loadView (key) {
-  $('.nav').find('.active').removeClass('active');
-  var navitem = ".navitem-"+key;
-  $('.nav').find(navitem).addClass('active');
-  var nt = $('.navbar-toggle');
-  if ($('.in').is(":visible")){
-    nt.click();
-  }
-  console.log(key);
-  var view = "views/"+key.toLowerCase().split(' ').join('')+".html";
-  $('.main .content').load(view);
-  $('.navbar-title').remove();
-  $('.navbar-brand').after("<div class='navbar-title'>"+key+"</div>");
-}
-function fadeContent () {
-  var c = $('.main .content');
-  var t = $('.navbar-title');
+  var nav = $('.collapse');
 
-  if( c.css("opacity") > .99 ) {
-    c.css('opacity', 0.4);
-    t.css('opacity', 0.4);
-    /* TweenLite.to(c, 0.4, {opacity:0.3}); */
+  if (currentKey == key){
+    $('.navbar-toggle').click();
+    return;
   }
-  else {
-    /* TweenLite.to(c, 1, {opacity:1}); */
-    c.css('opacity', 1);
-    t.css('opacity', 1);
+
+  console.log("key: "+currentKey+" to "+key);
+  currentKey = key;
+  var content = $('.main .content');
+
+  // Change title
+  if ( $('.navbar-title').length ){
+    var title = $('.navbar-title');
+    title.removeClass('fadeIn fadeDim fadeOut');
+    title.addClass('fadeOut').remove();
   }
+  var brand = $('.navbar-brand');
+  brand.after("<div class='navbar-title' style='opacity:0;'>"+key+"</div>");
+  $('.navbar-title').addClass('animated fadeIn');
+
+  // mark item as .active
+  var items = $('.nav');
+  items
+    .find('.active')
+    .removeClass('active');
+  items
+    .find(navitemClass)
+    .addClass('active');
+
+  // load new content
+  var view = "views/"+key
+              .toLowerCase()
+              .split(' ')
+              .join('')+".html";
+  var navitemClass = ".navitem-"+key;
+  content
+    .removeClass('fadeIn fadeDim fadeOut')
+    .addClass('fadeOut')
+    .load(view)
+    .removeClass('animated fadeOut');
+  /* $('.collapse').slideUp().removeClass('in').css({'height': 0, 'display': 'block'}); */
+  var toggleButton = $('.navbar-toggle');
+  /* console.log(toggleButton); */
+  /* content.addClass('animated fadeIn'); */
+  /* console.log('about to click') */
+  /* toggleButton.click(function(){ */
+    /* console.log("this is"+this) */
+  /* }); */
+  console.log('loadView done')
+
+}
+
+function say () {
+  alert('nav onSelect');
 }
 
 var navbarInstance = (
@@ -43,10 +101,10 @@ var navbarInstance = (
       inverse={false}
       fluid={true}
       onToggle={fadeContent}
-      brand={<a href="http://sf-eagle.com/sfibw/lab/index.html">sfBR</a>}
+      brand={'<a href="http://sf-eagle.com/sfibw/lab/index.html">sfBR</a>'}
     >
-      <Nav key={"about"} >
-        <NavItem key={"About"} href="#jj" className="navitem-about" onSelect={loadView}>About</NavItem>
+      <Nav key={"about"} collapsable={true} expanded={false}>
+        <NavItem key={"About"} hetef="#" className="navitem-about" onSelect={loadView}>About</NavItem>
         <NavItem key={"Transportation"} href="#" className="navitem-transportation" onSelect={loadView}>Transportation</NavItem>
         <NavItem key={"Lodging"} href="#" className="navitem-lodging" onSelect={loadView}>Lodging</NavItem>
         <NavItem key={"Schedule"} href="#" className="navitem-schedule" onSelect={loadView}>Schedule</NavItem>
@@ -55,10 +113,11 @@ var navbarInstance = (
         <NavItem key={"Contact Us"} href="#" className="navitem-contactus" onSelect={loadView}>Contact Us</NavItem>
       </Nav>
     </Navbar>
+
   );
 
 
-var menu = $('.menu')[0]
-React.renderComponent(navbarInstance, menu);
+var mount = $('.menu')[0]
+React.renderComponent(navbarInstance, mount);
 
 console.log("finished mainMenu");

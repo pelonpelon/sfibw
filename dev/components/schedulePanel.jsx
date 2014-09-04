@@ -36,7 +36,7 @@ var panelsInstance = (
           <h4>'til the wee hours</h4>
         </Panel>
 
-        <Panel header={<h3>B’Eros at Eros</h3>}>
+        <Panel header={<h3>B'Eros at Eros</h3>}>
           <h4></h4>
         </Panel>
 

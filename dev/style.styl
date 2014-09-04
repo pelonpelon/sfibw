@@ -1,0 +1,113 @@
+@require $bower+"variables"
+@require $bower+"mixins/*"
+@require $bower+"normalize"
+@require $bower+"scaffolding"
+@require $bower+"utilities"
+@require $bower+"type"
+
+html
+  background: $background
+
+body
+  box-sizing: border-box
+
+.main
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  background: $background
+  .text-hb
+    display: none
+  color: $highlight
+
+.content
+  background: $background
+  display: flex
+  flex-flow: column nowrap
+  height: 100%
+  // width: 100%
+  // height: 100%
+  // padding: 45% 0
+  // background-image: url('content/images/bear-jaws.png')
+  // background-size: 100% 100%
+  // background-repeat: no-repeat
+  // background-color: rgba(0,0,0,1)
+  // @media $retina
+    // padding: 60% 0
+    // width: 100% !important
+    // height: 100% !important
+    // background-image: url('content/images/bear-jaws@2x.png')
+    // background-size: 100% 100%
+  // @media $laptop
+    // padding: 20% 0
+
+// logo
+.logo
+  position: absolute
+  top: 15%
+  @media $laptop
+    top: 40%
+  width: 100%
+  text-align: center
+  background: transparent
+
+  .text-sf, .text-br, .text-yr
+    line-height: 1em
+    font-size: 2em
+    font-family: 'Laila', serif
+    @media $retina
+      font-size: 2em
+    @media $laptop
+      font-size: 3em
+
+  .intro
+    font-size: 16px
+    font-size: 16px
+    margin: 0 auto
+    text-align: left
+    margin: 20px
+    font-weight: 200
+    @media $laptop
+      width: 40%
+      margin: 50px auto
+
+  .text-hb, .text-yr
+    font-size: 1.2em
+    color: $brand
+    font-weight: 600
+
+// Common page styles
+
+.page-title
+  visibility: hidden
+  font-size: 25px
+  margin-top: 10px
+  margin-bottom: 10px
+
+.page
+  padding-top: 20px
+  background: $background
+
+// Transitions
+
+@require $anim+"fadeInUp.css"
+@require $anim+"fadeIn.css"
+
+.grow1
+   transition: padding 1s ease-in-out
+.grow2
+   transition: padding 2s ease-in-out
+.grow5
+   transition: padding 0.5s ease-in-out
+.fade1
+   transition: opacity 1s ease-in
+.fade2
+   transition: opacity 2s ease-in
+.fade5
+   transition: opacity 0.5s ease-in
+.opacity1
+  opacity: 1
+.opacity0
+  opacity: 0
