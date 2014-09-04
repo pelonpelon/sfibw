@@ -1,0 +1,122 @@
+@import "../bower_components/bootstrap-stylus/dist/bootstrap.min.css"
+@import "css/*"
+@import "splash/splash"
+
+$background = #000
+$highlight = #2595C7
+$highlighthover = #c000c0
+$text = aliceblue
+$texthover = yellow
+
+body, .header, .aside-1, .content, .aside-2, .footer
+  background-color: #000
+  color: color-h
+
+.content
+  height: 100%
+  position: absolute
+  top: 0
+  width: 100%
+  left: 0
+  @media $laptop
+    position: relative
+
+// mainMenu
+
+.navbar-header
+  background-color: $background
+  height: 46px
+
+.navbar-brand
+  height: 47px
+  font-variant: small-caps
+  text-align: left
+  width: 21%
+
+.navbar-title
+  float: left
+  width: 58%
+  font-size: 1.6em
+  @media $laptop
+    display: none
+
+.navbar-default .navbar-toggle
+  border-color: transparent;
+  padding-right: 0
+  width: 13%
+
+.navbar-default .navbar-toggle .icon-bar
+  float:right
+  clear:right
+  background-color: rgba(150,150,150,.5)
+  width: 28px
+  height: 2px
+
+.nav>li
+  font-size: 28px
+  @media $retina
+    font-size: 30px
+  @media $laptop
+    font-size: 20px
+    line-height: 28px
+
+.navbar-nav
+  margin: 0
+  @media $laptop
+    float: none
+    padding-right: 8%
+
+.navbar-collapse
+  margin-left: 0 !important
+  margin-right: 0 !important
+  padding-left: 0
+  padding-right: 0
+  width: 100%
+  background-color: $background
+  border: 0
+
+
+.navbar-nav>li
+  background-color: $background
+  @media $laptop
+    float: none
+    display: inline-block
+
+.navbar-default .navbar-nav>li>a
+  line-height:18px
+
+.navbar-default .navbar-nav>li>a:hover
+  color: $highlighthover
+  background-color: $background
+.navbar-default .navbar-nav>li>a:focus, .active
+  color: $highlighthover
+  background-color: $background
+
+// Pages
+
+.page-title
+  visibility: hidden
+  font-size: 25px
+  margin-top: 10px
+  margin-bottom: 10px
+
+.page
+  padding-top: 20px
+
+.schedule
+  .schedule-panel
+    margin: 0 auto
+    width: 90%
+    @media $laptop
+      width: 50%
+  h1, .h1, h2, .h2, h3, .h3
+    @media $laptop
+      margin-top: 30px;
+      margin-bottom: 20px;
+  .panel
+    background-color: #d0dfef
+  .panel-default>.panel-heading
+    color: #D0DFEF
+    background-color: #08687E
+    border-color: #ddd
+    text-align: left
