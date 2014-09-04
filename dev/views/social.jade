@@ -1,0 +1,15 @@
+.page.social
+  h1.page-title Social Media
+  .social
+script
+  :coffee
+    element = document.createElement "link"
+    element.href = "views/social.css"
+    element.rel = "stylesheet"
+    document.body.appendChild element
+
+    element = document.createElement "script"
+    element.src = "components/social.js"
+    document.body.appendChild element
+
+    console.log "social.html loaded"

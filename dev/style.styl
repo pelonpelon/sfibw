@@ -81,13 +81,16 @@ body
 // Common page styles
 
 .page-title
-  visibility: hidden
+  display: none
   font-size: 25px
   margin-top: 10px
   margin-bottom: 10px
+  @media $laptop
+    display: block
 
 .page
   padding-top: 20px
+  margin-top: 51px
   background: $background
 
 // Transitions

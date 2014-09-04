@@ -117,14 +117,14 @@ fastClick = ->
   element.src = "lib/fastclick.min.js"
   document.body.appendChild element
 
-  # defer applyFastClick, 'FastClick'
+  defer applyFastClick, 'FastClick'
 
-# applyFastClick = ->
-  # console.log "inside applyFastClick"
+applyFastClick = ->
+  console.log "inside applyFastClick"
 
-  # $( ->
-      # FastClick.attach(document.body)
-  # )
+  $( ->
+      FastClick.attach(document.body)
+  )
 
 
 if  window.addEventListener

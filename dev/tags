@@ -5,6 +5,7 @@
 !_TAG_PROGRAM_URL	https://github.com/lukaszkorecki/CoffeeTags	/GitHub repository/
 !_TAG_PROGRAM_VERSION	0.2.1	//
 animationChain	loader.coffee	/^animationChain = ()->$/;"	f	lineno:15	object:window	type:function
+applyFastClick	loader.coffee	/^applyFastClick = ->$/;"	f	lineno:122	object:window	type:function
 defer	loader.coffee	/^defer = (cb, global)->$/;"	f	lineno:46	object:window	type:function
 defer	splash/splash.coffee	/^defer = (cb, global)->$/;"	f	lineno:49	object:window	type:function
 downloadJSAtOnload	loader.coffee	/^downloadJSAtOnload = ->$/;"	f	lineno:55	object:window	type:function
@@ -21,4 +22,6 @@ react	loader.coffee	/^react = ->$/;"	f	lineno:94	object:window	type:function
 react	splash/splash.coffee	/^react = ->$/;"	f	lineno:78	object:window	type:function
 reactBootstrap	loader.coffee	/^reactBootstrap = ->$/;"	f	lineno:104	object:window	type:function
 reactBootstrap	splash/splash.coffee	/^reactBootstrap = ->$/;"	f	lineno:88	object:window	type:function
+read	../gulpfile.coffee	/^  gulp.watch [devDir+'**'], read:false, (event) ->$/;"	f	lineno:252	object:window	type:function
+runall	../gulpfile.coffee	/^  runall = (tasks...)->$/;"	f	lineno:244	object:window	type:function
 velocity	loader.coffee	/^velocity = ->$/;"	f	lineno:83	object:window	type:function

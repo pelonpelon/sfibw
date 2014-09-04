@@ -494,7 +494,7 @@ p {
   font-weight: 300;
   line-height: 1.4;
 }
-@media (min-width: 768px) {
+@media (min-width: 769px) {
   .lead {
     font-size: 21px;
   }
@@ -642,7 +642,7 @@ dt {
 dd {
   margin-left: 0;
 }
-@media (min-width: 768px) {
+@media (min-width: 769px) {
   .dl-horizontal dt {
     float: left;
     width: 160px;
@@ -808,13 +808,19 @@ body {
   font-weight: 600;
 }
 .page-title {
-  visibility: hidden;
+  display: none;
   font-size: 25px;
   margin-top: 10px;
   margin-bottom: 10px;
 }
+@media only screen and (min-width: 992px) {
+  .page-title {
+    display: block;
+  }
+}
 .page {
   padding-top: 20px;
+  margin-top: 51px;
   background: #000;
 }
 @-webkit-keyframes fadeInUp {

@@ -37,21 +37,24 @@ revDir = config.prodDir ? 'build/revisioned/'
 # Splash
 gulp.task 'splash-stylus', ->
   gulp.src devDir+'style.styl'
+    .pipe gp.changed devDir+"css", {extension: '.css'}
     .pipe stylus
       'include css': true
       import: "css/required.styl"
       errors: true
-
     .pipe gp.autoprefixer '> 1%', 'last 6 version', 'ff 17', 'opera 12.1', 'ios >= 5'
     .pipe gulp.dest devDir+"css"
+
 gulp.task 'splash-coffee', ->
   gulp.src devDir+'loader.coffee'
+    .pipe gp.changed devDir+"js", {extension: '.js'}
     .pipe coffee
       bare:true
-
     .pipe gulp.dest devDir+"js"
+
 gulp.task 'splash-jade', ->
   gulp.src devDir+'index.jade'
+    .pipe gp.changed buildDir, {extension: '.html'}
     .pipe gp.jade
       locals:
         pageTitle: config.pageTitle || 'MyApp'
@@ -64,6 +67,7 @@ gulp.task 'splash', (cb)->
 # jade
 gulp.task 'jade', ->
   gulp.src devDir+'views/**/*.jade', base: devDir
+    .pipe gp.changed buildDir, {extension: '.html'}
     .pipe gp.plumber()
     .pipe gp.jade
       locals:
@@ -84,6 +88,7 @@ gulp.task 'index', ->
 # coffee
 gulp.task 'coffee', ->
   gulp.src devDir+'views/**/*.coffee', base: devDir
+    .pipe gp.changed buildDir, {extension: '.js'}
     .pipe coffee(
       bare: true
     ).on 'error', gutil.log
@@ -99,12 +104,14 @@ gulp.task 'react', ->
       extname: ".jsx"
     .pipe gulp.dest devDir
   gulp.src devDir+'components/**/*.jsx', base: devDir
+    .pipe gp.changed buildDir, {extension: '.js'}
     .pipe gp.react()
     .pipe gulp.dest buildDir
 
 # stylus
 gulp.task 'stylus', ->
   gulp.src [devDir+'views/**/*.styl'], base: devDir
+    .pipe gp.changed buildDir, {extension: '.css'}
     .pipe gp.stylus
       'include css': true
       errors: true
@@ -123,13 +130,13 @@ gulp.task 'mksprite', (cb)->
       processor: 'stylus'
     .pipe gulpif('*.styl', gulp.dest devDir+'css')
     .pipe gulpif('*.styl', gp.ignore.exclude '*.styl')
-    .pipe gulpif(gulp.env.development, gulp.dest buildDir+'content/images')
-    .pipe gulp.dest prodDir+'content/images'
+    .pipe gulp.dest buildDir+'content/images'
   cb()
 
 # Images
 gulp.task 'img', ['mksprite'], (cb)->
   gulp.src [devDir+'content/**/*.{jpg,jpeg,png,svg,gif}'], base: devDir
+    .pipe gp.changed buildDir
     .pipe gp.cache gp.imagemin
       optimizationLevel: 3
       progressive: true
@@ -287,6 +294,8 @@ gulp.task 'watch', ['connect'], ->
       when '.css'
         if file is 'style.js'
           task1 = 'index'
+        if dir is 'lib'
+          task1 = 'copylibs'
         if dir is 'anim'
           task1 = 'splash'
           task2 = 'stylus'

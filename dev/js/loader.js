@@ -1,4 +1,4 @@
-var animationChain, defer, downloadJSAtOnload, fastClick, intro, logo, main, react, reactBootstrap, texthb, textyr, velocity, window;
+var animationChain, applyFastClick, defer, downloadJSAtOnload, fastClick, intro, logo, main, react, reactBootstrap, texthb, textyr, velocity, window;
 
 console.log("loading loader");
 
@@ -125,7 +125,15 @@ fastClick = function() {
   console.log("inside fastClick");
   element = document.createElement("script");
   element.src = "lib/fastclick.min.js";
-  return document.body.appendChild(element);
+  document.body.appendChild(element);
+  return defer(applyFastClick, 'FastClick');
+};
+
+applyFastClick = function() {
+  console.log("inside applyFastClick");
+  return $(function() {
+    return FastClick.attach(document.body);
+  });
 };
 
 if (window.addEventListener) {

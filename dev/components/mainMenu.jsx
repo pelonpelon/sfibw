@@ -110,7 +110,7 @@ var navbarInstance = (
         <NavItem key={"Schedule"} href="#" className="navitem-schedule" onSelect={loadView}>Schedule</NavItem>
         <NavItem key={"Bear Passes"} href="#" className="navitem-bearpasses" onSelect={loadView}>Bear Passes</NavItem>
         <NavItem key={"Sign Up"} href="#" className="navitem-signup" onSelect={loadView}>Sign Up</NavItem>
-        <NavItem key={"Contact Us"} href="#" className="navitem-contactus" onSelect={loadView}>Contact Us</NavItem>
+        <NavItem key={"Social"} href="#" className="navitem-social" onSelect={loadView}>Social</NavItem>
       </Nav>
     </Navbar>
 
