@@ -13,6 +13,6 @@ mainLoad	dev/splash/splash.coffee	/^mainLoad = ->$/;"	f	lineno:121	object:window
 mainSetup	dev/splash/splash.coffee	/^mainSetup = ->$/;"	f	lineno:113	object:window	type:function
 react	dev/splash/splash.coffee	/^react = ->$/;"	f	lineno:79	object:window	type:function
 reactBootstrap	dev/splash/splash.coffee	/^reactBootstrap = ->$/;"	f	lineno:89	object:window	type:function
-read	gulpfile.coffee	/^  gulp.watch [devDir+'**'], read:false, (event) ->$/;"	f	lineno:259	object:window	type:function
-runall	gulpfile.coffee	/^  runall = (tasks...)->$/;"	f	lineno:251	object:window	type:function
+read	gulpfile.coffee	/^  gulp.watch [devDir+'**'], read:false, (event) ->$/;"	f	lineno:320	object:window	type:function
+runall	gulpfile.coffee	/^  runall = (tasks...)->$/;"	f	lineno:312	object:window	type:function
 transferDir	splash.coffee	/^  transferDir: (conn, remotePath, localPath, compression, cb)->$/;"	f	lineno:7	object:window	type:function

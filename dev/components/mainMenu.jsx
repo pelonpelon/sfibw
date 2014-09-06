@@ -8,7 +8,6 @@ var currentKey;
 var main = $('.main');
 $('.main .content').addClass('animated');
 var mainClickSurface = document.getElementsByClassName('main')[0];
-/* FastClick.attach(document.body); */
 
 function fadeContent () {
 
@@ -22,7 +21,6 @@ function fadeContent () {
     title.removeClass('fadeIn fadeOut fadeDim');
     content.addClass('fadeIn');
     title.addClass('fadeIn');
-    /* FastClick.attach(mainClickSurface); */
 
 
   } else {
@@ -31,7 +29,6 @@ function fadeContent () {
     title.removeClass('fadeDim fadeIn fadeOut');
     content.addClass('fadeDim');
     title.addClass('fadeDim');
-    /* FastClick.attach(navbarClickSurface); */
   }
 
 }
@@ -101,7 +98,7 @@ var navbarInstance = (
       inverse={false}
       fluid={true}
       onToggle={fadeContent}
-      brand={'<a href="http://sf-eagle.com/sfibw/lab/index.html">sfBR</a>'}
+      brand={<a href="http://sf-eagle.com/sfibw/lab/index.html"></a>}
     >
       <Nav key={"about"} collapsable={true} expanded={false}>
         <NavItem key={"About"} hetef="#" className="navitem-about" onSelect={loadView}>About</NavItem>
@@ -119,5 +116,6 @@ var navbarInstance = (
 
 var mount = $('.menu')[0]
 React.renderComponent(navbarInstance, mount);
+$('.navbar-brand').addClass('icon');
 
 console.log("finished mainMenu");
