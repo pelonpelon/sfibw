@@ -2,6 +2,7 @@
 /bower_components
 /build
 /bower_components
+/dev/tmp
 npm-debug.log
 .config
 .vimsession
