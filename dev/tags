@@ -4,23 +4,25 @@
 !_TAG_PROGRAM_NAME	CoffeeTags	//
 !_TAG_PROGRAM_URL	https://github.com/lukaszkorecki/CoffeeTags	/GitHub repository/
 !_TAG_PROGRAM_VERSION	0.2.1	//
-animationChain	loader.coffee	/^animationChain = ()->$/;"	f	lineno:11	object:window	type:function
-applyFastClick	loader.coffee	/^applyFastClick = ->$/;"	f	lineno:120	object:window	type:function
-defer	loader.coffee	/^defer = (cbs, global)->$/;"	f	lineno:55	object:window	type:function
+LoadMenu	loader.coffee	/^  LoadMenu = ()->$/;"	f	lineno:46	object:animationChain	type:function
+PrefixedEvent	loader.coffee	/^PrefixedEvent = (element, types, callback)->$/;"	f	lineno:18	object:window	type:function
+animationChain	loader.coffee	/^animationChain = ()->$/;"	f	lineno:22	object:window	type:function
+applyFastClick	loader.coffee	/^applyFastClick = ->$/;"	f	lineno:137	object:window	type:function
+defer	loader.coffee	/^defer = (cbs, global)->$/;"	f	lineno:71	object:window	type:function
 defer	splash/splash.coffee	/^defer = (cb, global)->$/;"	f	lineno:49	object:window	type:function
-downloadJSAtOnload	loader.coffee	/^downloadJSAtOnload = ->$/;"	f	lineno:66	object:window	type:function
+downloadJSAtOnload	loader.coffee	/^downloadJSAtOnload = ->$/;"	f	lineno:82	object:window	type:function
 downloadJSAtOnload	splash/splash.coffee	/^downloadJSAtOnload = ->$/;"	f	lineno:58	object:window	type:function
-fastClick	loader.coffee	/^fastClick = ->$/;"	f	lineno:113	object:window	type:function
+fastClick	loader.coffee	/^fastClick = ->$/;"	f	lineno:130	object:window	type:function
 gsap	splash/splash.coffee	/^gsap = ->$/;"	f	lineno:97	object:window	type:function
 handleSelect	components/mainNav.coffee	/^handleSelect = (selectedKey)->$/;"	f	lineno:3	object:window	type:function
-isReactBootstrapLoaded	loader.coffee	/^    isReactBootstrapLoaded = ->$/;"	f	lineno:40	object:animationChain	type:function
+isReactBootstrapLoaded	loader.coffee	/^    isReactBootstrapLoaded = ->$/;"	f	lineno:47	object:animationChain.LoadMenu	type:function
 jquery	splash/splash.coffee	/^jquery = ->$/;"	f	lineno:68	object:window	type:function
 mainLoad	splash/splash.coffee	/^mainLoad = ->$/;"	f	lineno:119	object:window	type:function
 mainSetup	splash/splash.coffee	/^mainSetup = ->$/;"	f	lineno:111	object:window	type:function
-react	loader.coffee	/^react = ->$/;"	f	lineno:97	object:window	type:function
+react	loader.coffee	/^react = ->$/;"	f	lineno:114	object:window	type:function
 react	splash/splash.coffee	/^react = ->$/;"	f	lineno:78	object:window	type:function
-reactBootstrap	loader.coffee	/^reactBootstrap = ->$/;"	f	lineno:106	object:window	type:function
+reactBootstrap	loader.coffee	/^reactBootstrap = ->$/;"	f	lineno:123	object:window	type:function
 reactBootstrap	splash/splash.coffee	/^reactBootstrap = ->$/;"	f	lineno:88	object:window	type:function
 read	../gulpfile.coffee	/^  gulp.watch [devDir+'**'], read:false, (event) ->$/;"	f	lineno:252	object:window	type:function
 runall	../gulpfile.coffee	/^  runall = (tasks...)->$/;"	f	lineno:244	object:window	type:function
-velocity	loader.coffee	/^velocity = ->$/;"	f	lineno:89	object:window	type:function
+velocity	loader.coffee	/^velocity = ->$/;"	f	lineno:106	object:window	type:function

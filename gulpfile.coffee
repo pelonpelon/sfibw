@@ -184,22 +184,21 @@ gulp.task 'resizeImages', (cb) ->
   cb()
 
 # Make Sprite
-gulp.task 'mksprite', (cb)->
-  gulp.src [tmpDir+'icons/*', tmpDir+'thumbs/*']
+gulp.task 'mksprite', ->
+  stream = gulp.src [tmpDir+'icons/*', tmpDir+'thumbs/*']
     .pipe resize
       format: 'png'
     .pipe sprite
       name: 'sprite.png'
       style: '_sprite.styl'
-      cssPath: '../content/images'
+      cssPath: 'content/images'
       processor: 'stylus'
     .pipe optimize
       optimizationLevel: 3
-      progressive: true
       use: [pngcrush()]
     .pipe gulpif '*.styl', gulp.dest tmpDir
     .pipe gulpif '*.png', gulp.dest buildDir+'content/images'
-  cb()
+  return stream
 
 # Images
 gulp.task 'images', ['compressImages'], (cb)->
@@ -239,7 +238,7 @@ gulp.task 'treat', (cb)->
   js = gp.filter '**/*.js'
   css = gp.filter '**/*.css'
   html = gp.filter '**/*.html'
-  gulp.src buildDir+'**'
+  gulp.src buildDir+'**/*', base: buildDir
     .pipe js
     .pipe gp.uglify()
     .pipe js.restore()
@@ -259,7 +258,7 @@ gulp.task 'revall', ['cleanrev'], (cb)->
       /^\/index.html/g
       /^\/main.html/g
       /^\/content\/images\//g
-      /^\/content\/icons\//g
+      /^\/content\/favicons\//g
       /^\/lib\//g
       /^\/views\//g
     ]
@@ -331,6 +330,7 @@ gulp.task 'watch', ['connect'], ->
       when '.jade'
         task1 = 'jade'
       when '.styl'
+        log "in styl"
         if file is 'splash.styl'
           task1 = 'splash'
           task2 = 'css'
