@@ -1,10 +1,11 @@
 // mainMenu
 
 @require $anim+"fadeIn.css"
+@require $anim+"fadeOut.css"
 @require $anim+"fadeInUp.css"
 @require $anim+"fadeOutUp.css"
-@require $anim+"fadeDim.css"
-@require $anim+"fadeOut.css"
+@require $anim+"fadeInDim.css"
+@require $anim+"fadeOutDim.css"
 
 .navbar-default
   background: rgba(0,0,0,0.85)
@@ -24,13 +25,8 @@
 .navbar-default .navbar-brand
 .navbar-default .navbar-brand:focus,
 .navbar-default .navbar-brand:hover
-  color: transparent
-  background-color: $brand
-  background-image: url('../content/icons/brand-icon-57x57.png')
-  background-size: 49px 40px
-  border: 5px solid $background
-  background-repeat: no-repeat;
-  background-position: center;
+  sprite($brand)
+  background-color: $brand-color
 
 .navbar-title
   position: absolute

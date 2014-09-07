@@ -5,6 +5,11 @@
 @require $bower+"utilities"
 @require $bower+"type"
 
+@font-face
+   font-family Laila
+   font-style normal
+   src url(http://fonts.gstatic.com/s/laila/v1/JBUIIJj0-G2GVTwQf-wy0qCWcynf_cDxXwCLxiixG1c.woff)
+
 html
   background: $background
 
@@ -22,26 +27,15 @@ body
     display: none
   color: $highlight
 
+.text-sf, .text-br, .text-hb, .text-yr, .intro
+  opacity: 0  
+
+
 .content
   background: $background
   display: flex
   flex-flow: column nowrap
   height: 100%
-  // width: 100%
-  // height: 100%
-  // padding: 45% 0
-  // background-image: url('content/images/bear-jaws.png')
-  // background-size: 100% 100%
-  // background-repeat: no-repeat
-  // background-color: rgba(0,0,0,1)
-  // @media $retina
-    // padding: 60% 0
-    // width: 100% !important
-    // height: 100% !important
-    // background-image: url('content/images/bear-jaws@2x.png')
-    // background-size: 100% 100%
-  // @media $laptop
-    // padding: 20% 0
 
 // logo
 .logo

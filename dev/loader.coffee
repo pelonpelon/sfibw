@@ -4,34 +4,46 @@ window = this
 
 main = document.getElementsByClassName('main')[0]
 logo = main.getElementsByClassName('logo')[0]
-logo.style.opacity = 0
+textsf = logo.getElementsByClassName('text-sf')[0]
+textbr = logo.getElementsByClassName('text-br')[0]
 textyr = logo.getElementsByClassName('text-yr')[0]
-textyr.style.opacity = 0
 texthb = logo.getElementsByClassName('text-hb')[0]
-texthb.style.opacity = 0
 intro = logo.getElementsByClassName('intro')[0]
-intro.style.opacity = 0
+
+toBeAnimated = [textsf, textbr, textyr, texthb, intro]
+toBeAnimated.forEach (el)->
+  el.classList.add "animated"
+
+pfx = ["webkit", "moz", "MS", "o", ""]
+PrefixedEvent = (element, types, callback)->
+  for t in types
+    element.addEventListener t, callback, false
 
 animationChain = ()->
   console.log "ANIMATING"
 
-  $('.logo').on "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend", ()->
-    $(this).off "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend"
-    console.log "...intro"
-    setTimeout ()->
-      $('.text-yr').addClass 'animated fadeInUp'
-    ,500
+#  textsf.addEventListener "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend", ()->
+#    textsf.removeEventListener "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend"
+#    console.log "...textsf"
+#    setTimeout ()->
+#      textbr.classList.add 'fadeInUp'
+#    ,50
+#
+#  textbr.addEventListener "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend", ()->
+#    textbr.removeEventListener "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend"
+#    console.log "...textbr"
+#    setTimeout ()->
+#      textyr.classList.add 'fadeInUp'
+#    ,50
+#
+  # textyr.addEventListener "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend", ()->
+    # textyr.removeEventListener "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend"
+    # console.log "...textyr"
+    # setTimeout ()->
+      # intro.classList.add 'fadeIn'
+    # ,50
 
-  $('.text-yr').on "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend", ()->
-    $(this).off "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend"
-    console.log "...intro"
-    setTimeout ()->
-      $('.intro').addClass 'animated fadeIn'
-    ,500
-
-  $('.intro').on "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend", ()->
-    $(this).off "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend"
-    console.log "...menu"
+  LoadMenu = ()->
     isReactBootstrapLoaded = ->
       if window.ReactBootstrap?
         console.log "loading menu"
@@ -40,28 +52,44 @@ animationChain = ()->
         document.body.appendChild element
         clearInterval reactinterval
     reactinterval = setInterval(isReactBootstrapLoaded, 50)
+  PrefixedEvent intro, ["webkitAnimationEnd", "mozAnimationEnd", "MSAnimationEnd", "oanimationend", "animationend"], LoadMenu
 
-  $('.logo').addClass 'animated fadeInUp'
+  interval = 20
+  setTimeout ()->
+    textsf.classList.add 'fadeInUp'
+  ,interval
+  setTimeout ()->
+    textbr.classList.add 'fadeInUp'
+  ,interval*20
+  setTimeout ()->
+    textyr.classList.add 'fadeInUp'
+  ,interval*40
+  setTimeout ()->
+    intro.classList.add 'fadeIn'
+  ,interval*60
 
-defer = (cb, global)->
+defer = (cbs, global)->
   if window[global]?
-    console.log global+" loaded"
-    cb()
+    console.log "loaded: "+global
+    while cbs.length
+      cb = cbs.shift()
+      cb()
   else
     setTimeout ->
-      defer(cb, global)
+      defer(cbs, global)
     ,50
 
 downloadJSAtOnload = ->
   console.log "inside dl"
+  animationChain()
+
+  # element = document.createElement "link"
+  # element.href = "lib/bootstrap.min.css"
+  # element.rel = "stylesheet"
+  # document.head.appendChild element
 
   element = document.createElement "link"
-  element.href = "lib/bootstrap.min.css"
-  element.rel = "stylesheet"
-  document.head.appendChild element
-
-  element = document.createElement "link"
-  element.href = "views/mainMenu.css"
+  element.href = "all.css"
   element.rel = "stylesheet"
   document.head.appendChild element
 
@@ -70,14 +98,9 @@ downloadJSAtOnload = ->
   # element.src = "//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"
   document.body.appendChild element
 
-  isJqueryLoaded = ->
-    console.log "..."
-    if window.jQuery?
-      animationChain()
-      clearInterval jqueryInterval
-  jqueryInterval = setInterval(isJqueryLoaded,50)
-
-  defer velocity, 'jQuery'
+  defer [velocity, react, fastClick], 'jQuery'
+  defer [reactBootstrap], 'React'
+  defer [applyFastClick], 'FastClick'
 
 
 velocity = ->
@@ -88,9 +111,6 @@ velocity = ->
   element.src = "lib/velocity.min.js"
   document.body.appendChild element
 
-  defer react, 'velocity'
-
-
 react = ->
   console.log "inside react"
 
@@ -99,7 +119,6 @@ react = ->
   element.src = "lib/react.js"
   document.body.appendChild element
 
-  defer reactBootstrap, 'React'
 
 reactBootstrap = ->
   console.log "inside reactBootstrap"
@@ -108,8 +127,6 @@ reactBootstrap = ->
   element.src = "lib/react-bootstrap.js"
   document.body.appendChild element
 
-  defer fastClick, 'ReactBootstrap'
-
 fastClick = ->
   console.log "inside fastClick"
 
@@ -117,15 +134,13 @@ fastClick = ->
   element.src = "lib/fastclick.min.js"
   document.body.appendChild element
 
-  defer applyFastClick, 'FastClick'
-
 applyFastClick = ->
   console.log "inside applyFastClick"
 
   $( ->
       FastClick.attach(document.body)
   )
-
+  console.log "applied applyFastClick"
 
 if  window.addEventListener
   window.addEventListener "load", downloadJSAtOnload, false

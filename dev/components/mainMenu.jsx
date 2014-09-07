@@ -8,7 +8,6 @@ var currentKey;
 var main = $('.main');
 $('.main .content').addClass('animated');
 var mainClickSurface = document.getElementsByClassName('main')[0];
-/* FastClick.attach(document.body); */
 
 function fadeContent () {
 
@@ -18,20 +17,18 @@ function fadeContent () {
 
   if ($('.in').is(":visible")){
     console.log('in visible');
-    content.removeClass('fadeIn fadeOut fadeDim');
-    title.removeClass('fadeIn fadeOut fadeDim');
-    content.addClass('fadeIn');
-    title.addClass('fadeIn');
-    /* FastClick.attach(mainClickSurface); */
+    content.removeClass('fadeIn fadeOut fadeInDim fadeOutDim');
+    title.removeClass('fadeIn fadeOut fadeInDim fadeOutDim');
+    content.addClass('fadeInDim');
+    title.addClass('fadeInDim');
 
 
   } else {
     console.log('not in visible');
-    content.removeClass('fadeDim fadeIn fadeOut');
-    title.removeClass('fadeDim fadeIn fadeOut');
-    content.addClass('fadeDim');
-    title.addClass('fadeDim');
-    /* FastClick.attach(navbarClickSurface); */
+    content.removeClass('fadeIn fadeOut fadeInDim fadeOutDim');
+    title.removeClass('fadeIn fadeOut fadeInDim fadeOutDim');
+    content.addClass('fadeOutDim');
+    title.addClass('fadeOutDim');
   }
 
 }
@@ -51,7 +48,7 @@ function loadView (key) {
   // Change title
   if ( $('.navbar-title').length ){
     var title = $('.navbar-title');
-    title.removeClass('fadeIn fadeDim fadeOut');
+    title.removeClass('fadeIn fadeOut fadeInDim fadeOutDim');
     title.addClass('fadeOut').remove();
   }
   var brand = $('.navbar-brand');
@@ -74,10 +71,10 @@ function loadView (key) {
               .join('')+".html";
   var navitemClass = ".navitem-"+key;
   content
-    .removeClass('fadeIn fadeDim fadeOut')
+    .removeClass('fadeIn fadeOut fadeInDim fadeOutDim')
     .addClass('fadeOut')
     .load(view)
-    .removeClass('animated fadeOut');
+    .removeClass('fadeOut');
   /* $('.collapse').slideUp().removeClass('in').css({'height': 0, 'display': 'block'}); */
   var toggleButton = $('.navbar-toggle');
   /* console.log(toggleButton); */
@@ -101,7 +98,7 @@ var navbarInstance = (
       inverse={false}
       fluid={true}
       onToggle={fadeContent}
-      brand={'<a href="http://sf-eagle.com/sfibw/lab/index.html">sfBR</a>'}
+      brand={<a href="http://sf-eagle.com/sfibw/lab/index.html"></a>}
     >
       <Nav key={"about"} collapsable={true} expanded={false}>
         <NavItem key={"About"} hetef="#" className="navitem-about" onSelect={loadView}>About</NavItem>
@@ -119,5 +116,6 @@ var navbarInstance = (
 
 var mount = $('.menu')[0]
 React.renderComponent(navbarInstance, mount);
+$('.navbar-brand').addClass('icon');
 
 console.log("finished mainMenu");
