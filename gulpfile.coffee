@@ -43,6 +43,7 @@ gulp.task 'splash-stylus', ->
   gulp.src [
       devDir+'defaults.styl'
       devDir+'splash.styl'
+      devDir+'anim/**/*.styl'
       ], base: devDir
     .pipe concat 'splash.styl'
     .pipe stylus
@@ -73,9 +74,10 @@ gulp.task 'splash', (cb)->
 # stylus
 gulp.task 'stylus', ->
   gulp.src [
+    devDir+'bootstrap/**/*.styl'
     devDir+'defaults.styl'
     tmpDir+'_sprite.styl'
-    devDir+'views/**/*.styl'
+    devDir+'components/**/*.styl'
   ], base: devDir
   .pipe concat 'views.styl'
   .pipe gp.stylus
@@ -124,19 +126,29 @@ gulp.task 'index', ->
       pretty: true
     .pipe gulp.dest buildDir
 
-# React
-gulp.task 'react', ->
-  gulp.src devDir+'components/**/*.coffee', base: devDir
-    .pipe coffee(
+
+# cjsx Coffeescript version of jsx
+gulp.task 'cjsx', ->
+  gulp.src devDir+'components/**/*.cjsx', base: devDir
+    .pipe gp.cjsx(
       bare: true
     ).on 'error', gutil.log
-    .pipe gp.rename
-      extname: ".jsx"
-    .pipe gulp.dest devDir
+    .pipe concat 'cjsx.js'
+    .pipe gulp.dest tmpDir
+
+# jsx
+gulp.task 'jsx', ->
   gulp.src devDir+'components/**/*.jsx', base: devDir
-    .pipe gp.changed buildDir, {extension: '.js'}
     .pipe gp.react()
+    .pipe concat 'jsx.js'
+    .pipe gulp.dest tmpDir
+
+# React
+gulp.task 'react',['cjsx', 'jsx'], ->
+  gulp.src [tmpDir+'*jsx.js'], base: devDir
+    .pipe concat 'components.js'
     .pipe gulp.dest buildDir
+
 
 # resizeIcons
 gulp.task 'resizeIcons', (cb) ->
@@ -209,9 +221,29 @@ gulp.task 'copylibs', ->
   gulp.src [devDir+'lib/**/*'], base: devDir
     .pipe gulp.dest buildDir
 
+# cat libs
+gulp.task 'catlibs', ->
+  gulp.src [devDir+'lib/**/*.js'], base: devDir
+    .pipe gp.ignore.exclude "*.min.js"
+    .pipe concat 'libs.js'
+    .pipe gulp.dest buildDir
+  gulp.src [devDir+'lib/**/*.css', tmpDir+'views.css'], base: devDir
+    .pipe gp.ignore.exclude "*.min.js"
+    .pipe concat 'all.css'
+    .pipe gulp.dest buildDir
+
+# cat minified libs
+gulp.task 'catminlibs', ->
+  gulp.src [devDir+'lib/**/*.min.js'], base: devDir
+    .pipe concat 'libs.js'
+    .pipe gulp.dest prodDir
+  gulp.src [devDir+'lib/**/*.min.css', tmpDir+'views.css'], base: devDir
+    .pipe concat 'all.css'
+    .pipe gulp.dest buildDir
+
 # Clean
 gulp.task 'clean', ->
-  gulp.src [prodDir, revDir, tmpDir], read: false
+  gulp.src [buildDir, prodDir, revDir, tmpDir], read: false
     .pipe gp.clean force: true
 
 # Clean Build
@@ -226,12 +258,11 @@ gulp.task 'cleanrev', ->
 
 # Build
 gulp.task 'build', (cb)->
-  runSequence 'cleanbuild', 'copylibs', 'images', 'splash', 'css', 'coffee', 'react', 'jade', cb
+  runSequence 'cleanbuild', 'images', 'splash', 'stylus', 'coffee', 'react', 'catlibs', cb
 
 # Dist
 gulp.task 'dist', (cb)->
-  runSequence 'clean', 'build', 'treat'
-  cb()
+  runSequence 'clean', 'images', 'splash', 'stylus', 'coffee', 'react', 'treat', 'catminlibs', cb
 
 # Treat
 gulp.task 'treat', (cb)->
@@ -333,30 +364,30 @@ gulp.task 'watch', ['connect'], ->
         log "in styl"
         if file is 'splash.styl'
           task1 = 'splash'
-          task2 = 'css'
+          task2 = 'stylus'
         else if file is 'defaults.styl'
           task1 = 'splash'
-          task2 = 'css'
+          task2 = 'stylus'
         else
-          task1 = 'css'
+          task1 = 'stylus'
       when '.coffee'
         if file is 'loader.coffee'
           task1 = 'splash'
-        else if dir is 'components'
-          task1 = 'react'
         else
           task1 = 'coffee'
       when '.js'
         if dir is 'lib'
-          task1 = 'copylibs'
+          task1 = 'catlibs'
       when '.css'
         if dir is 'lib'
           task1 = 'copylibs'
         if dir is 'anim'
           task1 = 'splash'
-          task2 = 'css'
+          task2 = 'stylus'
       when '.jsx'
         task1 = 'react'
+      when '.cjsx'
+        task1 = 'cjsx'
       when '.jpg', '.jpeg', '.png', '.gif'
         task1 = 'img'
       else

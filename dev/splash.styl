@@ -1,9 +1,9 @@
-@require $bower+"variables"
-@require $bower+"mixins/*"
-@require $bower+"normalize"
-@require $bower+"scaffolding"
-@require $bower+"utilities"
-@require $bower+"type"
+@require $bootstrap+"variables"
+@require $bootstrap+"mixins/*"
+@require $bootstrap+"normalize"
+@require $bootstrap+"scaffolding"
+@require $bootstrap+"utilities"
+@require $bootstrap+"type"
 
 @font-face
    font-family Laila
@@ -28,7 +28,7 @@ body
   color: $highlight
 
 .text-sf, .text-br, .text-hb, .text-yr, .intro
-  opacity: 0  
+  opacity: 0
 
 
 .content
@@ -83,28 +83,9 @@ body
     display: block
 
 .page
-  padding-top: 20px
-  margin-top: 51px
-  background: $background
+  opacity: 0;
+  position: absolute
+  top: 50px
+  left: 0
+  background: 'yellow'
 
-// Transitions
-
-@require $anim+"fadeInUp.css"
-@require $anim+"fadeIn.css"
-
-.grow1
-   transition: padding 1s ease-in-out
-.grow2
-   transition: padding 2s ease-in-out
-.grow5
-   transition: padding 0.5s ease-in-out
-.fade1
-   transition: opacity 1s ease-in
-.fade2
-   transition: opacity 2s ease-in
-.fade5
-   transition: opacity 0.5s ease-in
-.opacity1
-  opacity: 1
-.opacity0
-  opacity: 0

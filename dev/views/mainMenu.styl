@@ -1,12 +1,5 @@
 // mainMenu
 
-@require $anim+"fadeIn.css"
-@require $anim+"fadeOut.css"
-@require $anim+"fadeInUp.css"
-@require $anim+"fadeOutUp.css"
-@require $anim+"fadeInDim.css"
-@require $anim+"fadeOutDim.css"
-
 .navbar-default
   background: rgba(0,0,0,0.85)
   border-color: $theme-dark
@@ -16,13 +9,15 @@
   height: 46px
 
 .navbar-brand
-  height: 50px
+  height: 51px
   font-variant: small-caps
   text-align: left
   width: 59px
   padding-right: 34px
+  @media $laptop
+    display: none
 
-.navbar-default .navbar-brand
+.navbar-default .navbar-brand,
 .navbar-default .navbar-brand:focus,
 .navbar-default .navbar-brand:hover
   sprite($brand)
@@ -42,9 +37,9 @@
   border-color: transparent;
   width: 59px
 
-.navbar-default .navbar-toggle:focus,
-.navbar-default .navbar-toggle:hover
-  background: transparent
+  .navbar-default .navbar-toggle
+    &:focus, &:hover
+      background: transparent
 
 .navbar-default .navbar-toggle .icon-bar
   float:right
@@ -70,7 +65,6 @@
   background-color: $background
   border: 0
 
-
 .navbar-nav>li
   background-color: $background
   @media $laptop
@@ -83,11 +77,9 @@
   color: $titles
   @media $laptop
     font-size: 1.5em
+  &:hover, &:focus, &.active
+    color: $highlight
+    background-color: $background
 
-.navbar-default .navbar-nav>li>a:hover
-  color: $highlight
-  background-color: $background
-.navbar-default .navbar-nav>li>a:focus, .active
-  color: $highlight
-  background-color: $background
+
 

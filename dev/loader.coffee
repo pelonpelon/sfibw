@@ -45,13 +45,36 @@ animationChain = ()->
 
   LoadMenu = ()->
     isReactBootstrapLoaded = ->
-      if window.ReactBootstrap?
+      if window.$? && window.React? && window.ReactBootstrap?
+
         console.log "loading menu"
         element = document.createElement "script"
-        element.src = "components/mainMenu.js"
+        element.src = "components.js"
         document.body.appendChild element
+
+        # pages = ['about', 'transportation', 'lodging', 'schedule', 'bearPasses', 'signUp', 'social'  ]
+
+        # for page in pages
+          # $('.content').append('<div class="page '+page+'"></div>')
+          # console.log "loading: "+ page
+          # element = document.createElement "script"
+          # element.src = "components/"+page+".js"
+          # document.body.appendChild element
+
         clearInterval reactinterval
+
     reactinterval = setInterval(isReactBootstrapLoaded, 50)
+
+    # isFastClickLoaded = ->
+      # if window.fastClick?
+
+        # window.fastClick.attach(document.body)
+        # console.log "applied applyFastClick"
+
+        # clearInterval fastclickinterval
+
+    # fastclickinterval = setInterval(isFastClickLoaded 50)
+
   PrefixedEvent intro, ["webkitAnimationEnd", "mozAnimationEnd", "MSAnimationEnd", "oanimationend", "animationend"], LoadMenu
 
   interval = 20
@@ -81,26 +104,27 @@ defer = (cbs, global)->
 
 downloadJSAtOnload = ->
   console.log "inside dl"
-  animationChain()
 
-  # element = document.createElement "link"
-  # element.href = "lib/bootstrap.min.css"
-  # element.rel = "stylesheet"
-  # document.head.appendChild element
+  animationChain()
 
   element = document.createElement "link"
   element.href = "all.css"
   element.rel = "stylesheet"
   document.head.appendChild element
 
+
   element = document.createElement "script"
-  element.src = "lib/jquery.js"
-  # element.src = "//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"
+  element.src = "libs.js"
   document.body.appendChild element
 
-  defer [velocity, react, fastClick], 'jQuery'
-  defer [reactBootstrap], 'React'
-  defer [applyFastClick], 'FastClick'
+  # element = document.createElement "script"
+  # element.src = "lib/jquery.js"
+  # element.src = "//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"
+  # document.body.appendChild element
+
+  # defer [velocity, react, fastClick], 'jQuery'
+  # defer [reactBootstrap], 'React'
+  # defer [applyFastClick], 'FastClick'
 
 
 velocity = ->
