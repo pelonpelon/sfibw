@@ -42,6 +42,7 @@ revDir = config.prodDir ? 'build/revisioned/'
 gulp.task 'splash-stylus', ->
   gulp.src [
       devDir+'defaults.styl'
+      tmpDir+'_sprite.styl'
       devDir+'splash.styl'
       devDir+'anim/**/*.styl'
       ], base: devDir
@@ -149,24 +150,9 @@ gulp.task 'react',['cjsx', 'jsx'], ->
     .pipe concat 'components.js'
     .pipe gulp.dest buildDir
 
-
-# resizeIcons
-gulp.task 'resizeIcons', (cb) ->
-  gulp.src [devDir+'content/icons/*.{png,jpg,jpeg,gif}']
-  .pipe gp.changed tmpDir+'icons'
-  .pipe resize
-    format: 'png'
-    width: 50
-    height: 50
-    crop: true
-    upscale: false
-  .pipe gulp.dest tmpDir+'icons'
-  cb()
-
 # compressImages
 gulp.task 'compressImages', ->
   stream = gulp.src [devDir+'content/images/*.{png,jpg,jpeg,gif,svg}']
-    .pipe gp.changed tmpDir+'compressed'
     .pipe optimize
       optimizationLevel: 3
       cache: true
@@ -176,11 +162,21 @@ gulp.task 'compressImages', ->
     .pipe gulp.dest tmpDir+'compressed'
   return stream
 
+# resizeIcons
+gulp.task 'resizeIcons', (cb) ->
+  gulp.src [devDir+'content/icons/*.{png,jpg,jpeg,gif}']
+  .pipe resize
+    format: 'png'
+    width: 50
+    height: 50
+    crop: true
+    upscale: false
+  .pipe gulp.dest tmpDir+'icons'
+  cb()
 
 # resizeThumbs
 gulp.task 'resizeThumbs', ->
   stream = gulp.src [tmpDir+'compressed/*.{png,jpg,jpeg,gif,svg}']
-    .pipe gp.changed tmpDir+'thumbs'
     .pipe resize
       width : 180
     .pipe gulp.dest tmpDir+'thumbs'
@@ -189,7 +185,6 @@ gulp.task 'resizeThumbs', ->
 # resizeImages
 gulp.task 'resizeImages', (cb) ->
   gulp.src [tmpDir+'compressed/*.{png,jpg,jpeg,gif,svg}']
-  .pipe gp.changed buildDir+'content/images'
   .pipe gp.cache resize
     width : 650
   .pipe gulp.dest buildDir+'content/images'
@@ -205,12 +200,12 @@ gulp.task 'mksprite', ->
       style: '_sprite.styl'
       cssPath: 'content/images'
       processor: 'stylus'
+  return stream
     .pipe optimize
       optimizationLevel: 3
       use: [pngcrush()]
     .pipe gulpif '*.styl', gulp.dest tmpDir
     .pipe gulpif '*.png', gulp.dest buildDir+'content/images'
-  return stream
 
 # Images
 gulp.task 'images', ['compressImages'], (cb)->
@@ -240,29 +235,6 @@ gulp.task 'catminlibs', ->
   gulp.src [devDir+'lib/**/*.min.css', tmpDir+'views.css'], base: devDir
     .pipe concat 'all.css'
     .pipe gulp.dest buildDir
-
-# Clean
-gulp.task 'clean', ->
-  gulp.src [buildDir, prodDir, revDir, tmpDir], read: false
-    .pipe gp.clean force: true
-
-# Clean Build
-gulp.task 'cleanbuild', ->
-  gulp.src [buildDir], read: false
-    .pipe gp.clean force: true
-
-# Clean Rev
-gulp.task 'cleanrev', ->
-  gulp.src [revDir], read: false
-    .pipe gp.clean force: true
-
-# Build
-gulp.task 'build', (cb)->
-  runSequence 'cleanbuild', 'images', 'splash', 'stylus', 'coffee', 'react', 'catlibs', cb
-
-# Dist
-gulp.task 'dist', (cb)->
-  runSequence 'clean', 'images', 'splash', 'stylus', 'coffee', 'react', 'treat', 'catminlibs', cb
 
 # Treat
 gulp.task 'treat', (cb)->
@@ -296,6 +268,33 @@ gulp.task 'revall', ['cleanrev'], (cb)->
   .pipe gulp.dest revDir
   cb()
 
+# Clean
+gulp.task 'clean', ->
+  gulp.src [buildDir, prodDir, revDir, tmpDir], read: false
+    .pipe gp.clean force: true
+
+# Clean Build
+gulp.task 'cleanbuild', ->
+  gulp.src [buildDir], read: false
+    .pipe gp.clean force: true
+
+# Clean Rev
+gulp.task 'cleanrev', ->
+  gulp.src [revDir], read: false
+    .pipe gp.clean force: true
+
+# Build
+gulp.task 'build', (cb)->
+  runSequence 'cleanbuild', 'images', 'splash', 'stylus', 'coffee', 'react', 'catlibs', cb
+
+# Dist
+gulp.task 'dist', (cb)->
+  runSequence 'clean', 'images', 'splash', 'stylus', 'coffee', 'react', 'treat', 'catminlibs', cb
+
+# Default task
+gulp.task 'default', ['build'], (cb)->
+  runSequence 'watch', cb
+
 gulp.task 'rsynclab', ->
   remotePath = config.labRemotePath
   log remotePath
@@ -321,10 +320,6 @@ gulp.task 'rsyncwww', ->
     args: ['--verbose']
   , (error, stdout, stderr, cmd)->
       gutil.log stdout
-
-# Default task
-gulp.task 'default', ['build'], (cb)->
-  runSequence 'watch', cb
 
 gulp.task 'loadindex', ['index'], ->
   gulp.src buildDir+'index.html'
@@ -365,31 +360,37 @@ gulp.task 'watch', ['connect'], ->
         if file is 'splash.styl'
           task1 = 'splash'
           task2 = 'stylus'
+          task3 = 'catlibs'
         else if file is 'defaults.styl'
           task1 = 'splash'
           task2 = 'stylus'
+          task3 = 'catlibs'
         else
           task1 = 'stylus'
+          task2 = 'catlibs'
       when '.coffee'
         if file is 'loader.coffee'
           task1 = 'splash'
+          task2 = 'catlibs'
         else
           task1 = 'coffee'
+          task2 = 'catlibs'
       when '.js'
         if dir is 'lib'
           task1 = 'catlibs'
       when '.css'
         if dir is 'lib'
-          task1 = 'copylibs'
+          task1 = 'catlibs'
         if dir is 'anim'
           task1 = 'splash'
           task2 = 'stylus'
+          task3 = 'catlibs'
       when '.jsx'
         task1 = 'react'
       when '.cjsx'
-        task1 = 'cjsx'
+        task1 = 'react'
       when '.jpg', '.jpeg', '.png', '.gif'
-        task1 = 'img'
+        task1 = 'images'
       else
         return
     gulp.task 'reload', (cb)->
