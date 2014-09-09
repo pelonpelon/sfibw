@@ -81,7 +81,7 @@ switchView = (key)->
   $('.navbar-title').addClass 'animated fadeIn'
 
   # mark item as .active
-  items = $('.nav')
+  items = $('.navbar-nav')
   items
     .find('.active')
     .removeClass('active')

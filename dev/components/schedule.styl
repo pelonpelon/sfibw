@@ -1,18 +1,40 @@
 .schedule
-  .schedule-panel
-    margin: 0 auto
-    width: 90%
-    @media $laptop
-      width: 50%
-  h1, .h1, h2, .h2, h3, .h3
+  .content
+    nav
+      position: fixed
+      top: 46px
+      background-color: $theme-dark
     @media $laptop
       margin-top: 30px;
       margin-bottom: 20px;
-  .panel
-    background-color: #d0dfef
-  .panel-default>.panel-heading
-    color: $text-light
-    background-color: $theme-dark
-    border-color: $theme-light
-    text-align: left
-    
+    .nav
+      margin: 0
+  
+    .nav-tabs
+      border-bottom: 0
+      >li
+        font-size: 1.4em
+        line-height: 1em 
+        width: 20%
+        text-align: center
+        >a
+          border-bottom: $text-special solid
+    .nav-tabs>li.active>a,
+    .nav-tabs>li.active>a:focus,
+    .nav-tabs>li.active>a:hover
+      background-color: transparent
+      border: transparent
+      border-bottom: red solid
+      color: $hignlight-hover
+      font-weight: 900 
+    .tab-content
+      margin-top: 90px
+    .panel
+      background-color: #d0dfef
+      margin-bottom: 0
+      margin-top: 1px
+    .panel-default>.panel-heading
+      color: $text-special
+      background-color: $theme-dark
+      border-color: $theme-light
+      text-align: left

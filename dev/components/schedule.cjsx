@@ -1,14 +1,15 @@
 console.log("inside schedule")
 
 Panel = ReactBootstrap.Panel
+TabbedArea = ReactBootstrap.TabbedArea
+TabPane = ReactBootstrap.TabPane
 
-title = (
-    <h3>Panel title</h3>
-  )
+key = 1
 
-scheduleComponent = (
-    <div>
-      <h2>Thursday 12</h2>
+renderTabbedArea = ->
+  scheduleComponent = (
+      <TabbedArea defaultActiveKey={key}>
+        <TabPane key={1} tab="Thu 12">
 
         <Panel header={<h3>Early Registration/MeetnGreet</h3>}>
            <h4>5pm-9pm</h4>
@@ -20,7 +21,8 @@ scheduleComponent = (
           at SF Eagle
         </Panel>
 
-      <h2>Friday 13</h2>
+        </TabPane>
+        <TabPane key={2} tab="Fri 13">
 
         <Panel header={<h3>Registration</h3>}>
           <h4>Noon-8pm</h4>
@@ -36,11 +38,12 @@ scheduleComponent = (
           <h4>'til the wee hours</h4>
         </Panel>
 
-        <Panel header={<h3>B'Eros at Eros</h3>}>
+        <Panel header={<h3>B\'Eros at Eros</h3>}>
           <h4></h4>
         </Panel>
 
-      <h2>Saturday 14</h2>
+        </TabPane>
+        <TabPane key={3} tab="Sat 14">
 
         <Panel header={<h3>Brunch at SF Eagle</h3>}>
           <h4>10am-1pm</h4>
@@ -67,7 +70,8 @@ scheduleComponent = (
           at Beatbox
         </Panel>
 
-      <h2>Sunday 15</h2>
+        </TabPane>
+        <TabPane key={4} tab="Sun 15">
 
         <Panel header={<h3>Street Fair</h3>}>
           <h4>11am-6pm</h4>
@@ -78,7 +82,8 @@ scheduleComponent = (
           at Blow buddies
         </Panel>
 
-      <h2>Monday 16</h2>
+        </TabPane>
+        <TabPane key={5} tab="Mon 16">
 
         <Panel header={<h3>Wind down BBQ and Beer Bust</h3>}>
           <h4>3pm-6pm</h4>
@@ -88,7 +93,17 @@ scheduleComponent = (
         <Panel header={<h3>Castro retail romp</h3>}>
           <h4></h4>
         </Panel>
-    </div>
-  )
 
-React.renderComponent(scheduleComponent, $('.schedule .content')[0])
+        </TabPane>
+      </TabbedArea>
+    )
+  React.renderComponent(scheduleComponent, $('.schedule .content')[0])
+  $('.nav-tabs>li:first-of-type').addClass 'active'
+
+handleSelect = (selectedKey)->
+  console.log 'selected ' + selectedKey
+  key = selectedKey
+  renderTabbedArea()
+
+renderTabbedArea()
+
