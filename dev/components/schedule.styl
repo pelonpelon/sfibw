@@ -1,23 +1,32 @@
 .schedule
   .content
+    max-width: 600px
+    margin: 124px auto
     nav
       position: fixed
       top: 46px
+      width: 100%
+      max-width: 600px
       background-color: $theme-dark
     @media $laptop
       margin-top: 30px;
       margin-bottom: 20px;
     .nav
       margin: 0
-  
+      >li>a
+        padding: 10px 7px
+        background-color: transparent
     .nav-tabs
       border-bottom: 0
       >li
-        font-size: 1.4em
-        line-height: 1em 
         width: 20%
-        text-align: center
         >a
+          font-size: 0.9em
+          @media $laptop
+            font-size: 1.1em
+          line-height: 1.4em 
+          text-align: center
+          border: none
           border-bottom: $text-special solid
     .nav-tabs>li.active>a,
     .nav-tabs>li.active>a:focus,
@@ -25,10 +34,12 @@
       background-color: transparent
       border: transparent
       border-bottom: red solid
-      color: $hignlight-hover
-      font-weight: 900 
+      color: $text-special
+      font-weight: 600 
     .tab-content
       margin-top: 90px
+      @media $laptop
+        margin-top: 130px
     .panel
       background-color: #d0dfef
       margin-bottom: 0

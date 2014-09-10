@@ -3,15 +3,16 @@
 .navbar-header
   background-color: $theme-dark
   height: 46px
+  @media $laptop
+    height: 0
 
 .navbar-default
   background: $theme-dark
-  opacity: 0.85
   border-color: $theme-dark
   .navbar-brand,
   .navbar-brand:hover,
   .navbar-brand:focus
-    sprite($claw-beige)
+    sprite($claw-beige-cutout)
     background-color: $theme-dark
     height: 50px
     font-variant: small-caps
@@ -71,7 +72,7 @@
   font-size: 2em
   color: $titles
   @media $laptop
-    font-size: 1.5em
+    font-size: 140%
   &:hover, &:focus, &.active
     color: $highlight
 

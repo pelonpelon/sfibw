@@ -9,7 +9,7 @@ key = 1
 renderTabbedArea = ->
   scheduleComponent = (
       <TabbedArea defaultActiveKey={key}>
-        <TabPane key={1} tab="Thu 12">
+        <TabPane key={1} tab="Thursday 12">
 
         <Panel header={<h3>Early Registration/MeetnGreet</h3>}>
            <h4>5pm-9pm</h4>
@@ -22,7 +22,7 @@ renderTabbedArea = ->
         </Panel>
 
         </TabPane>
-        <TabPane key={2} tab="Fri 13">
+        <TabPane key={2} tab="Friday 13">
 
         <Panel header={<h3>Registration</h3>}>
           <h4>Noon-8pm</h4>
@@ -43,7 +43,7 @@ renderTabbedArea = ->
         </Panel>
 
         </TabPane>
-        <TabPane key={3} tab="Sat 14">
+        <TabPane key={3} tab="Saturday 14">
 
         <Panel header={<h3>Brunch at SF Eagle</h3>}>
           <h4>10am-1pm</h4>
@@ -71,7 +71,7 @@ renderTabbedArea = ->
         </Panel>
 
         </TabPane>
-        <TabPane key={4} tab="Sun 15">
+        <TabPane key={4} tab="Sunday 15">
 
         <Panel header={<h3>Street Fair</h3>}>
           <h4>11am-6pm</h4>
@@ -83,7 +83,7 @@ renderTabbedArea = ->
         </Panel>
 
         </TabPane>
-        <TabPane key={5} tab="Mon 16">
+        <TabPane key={5} tab="Monday 16">
 
         <Panel header={<h3>Wind down BBQ and Beer Bust</h3>}>
           <h4>3pm-6pm</h4>

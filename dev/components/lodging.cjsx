@@ -7,15 +7,13 @@ Col = ReactBootstrap.Col
 lodgingComponent = (
   <Grid>
       <Row className="show-grid">
-        <Col xs={4}><h4>{'Email'}</h4></Col>
-        <Col xs={4}><h4>{'Facebook'}</h4></Col>
-        <Col xs={4}><h4>{'Twitter'}</h4></Col>
+        <Col xs={6}><h4>{'Main Hotel'}</h4></Col>
+        <Col xs={6}><h4>{'Becks'}</h4></Col>
       </Row>
 
       <Row className="show-grid">
-        <Col xs={4}><h4>{'Instagram'}</h4></Col>
-        <Col xs={4}><h4>{'Tumblr'}</h4></Col>
-        <Col xs={4}><h4>{'Newsletter'}</h4></Col>
+        <Col xs={6}><h4>{'Best Western'}</h4></Col>
+        <Col xs={6}><h4>{'Parker House'}</h4></Col>
       </Row>
 
   </Grid>

@@ -163,16 +163,16 @@ gulp.task 'compressImages', ->
   return stream
 
 # resizeIcons
-gulp.task 'resizeIcons', (cb) ->
-  gulp.src [devDir+'content/icons/*.{png,jpg,jpeg,gif}']
-  .pipe resize
-    format: 'png'
-    width: 50
-    height: 50
-    crop: true
-    upscale: false
-  .pipe gulp.dest tmpDir+'icons'
-  cb()
+gulp.task 'resizeIcons', ->
+  stream = gulp.src [devDir+'content/icons/*.{png,jpg,jpeg,gif}']
+    .pipe resize
+      format: 'png'
+      width: 50
+      height: 50
+      crop: true
+      upscale: false
+    .pipe gulp.dest tmpDir+'icons'
+  return stream
 
 # resizeThumbs
 gulp.task 'resizeThumbs', ->
@@ -183,12 +183,12 @@ gulp.task 'resizeThumbs', ->
   return stream
 
 # resizeImages
-gulp.task 'resizeImages', (cb) ->
-  gulp.src [tmpDir+'compressed/*.{png,jpg,jpeg,gif,svg}']
-  .pipe gp.cache resize
-    width : 650
-  .pipe gulp.dest buildDir+'content/images'
-  cb()
+gulp.task 'resizeImages', ->
+  stream = gulp.src [tmpDir+'compressed/*.{png,jpg,jpeg,gif,svg}']
+    .pipe gp.cache resize
+      width : 650
+    .pipe gulp.dest buildDir+'content/images'
+  return stream
 
 # Make Sprite
 gulp.task 'mksprite', ->
@@ -209,11 +209,11 @@ gulp.task 'mksprite', ->
 
 # Images
 gulp.task 'images', ['compressImages'], (cb)->
-  runSequence ['resizeIcons', 'resizeThumbs', 'resizeImages'], 'mksprite', cb
+  runSequence 'resizeIcons', 'resizeThumbs', 'resizeImages', 'mksprite', cb
 
-# copy libs
-gulp.task 'copylibs', ->
-  gulp.src [devDir+'lib/**/*'], base: devDir
+# copy favicons
+gulp.task 'copyfavicons', ->
+  gulp.src [devDir+'content/favicons/**/*'], base: devDir
     .pipe gulp.dest buildDir
 
 # cat libs
@@ -259,11 +259,8 @@ gulp.task 'revall', ['cleanrev'], (cb)->
     ignore: [
       /^\/favicon.ico$/g
       /^\/index.html/g
-      /^\/main.html/g
-      /^\/content\/images\//g
       /^\/content\/favicons\//g
       /^\/lib\//g
-      /^\/views\//g
     ]
   .pipe gulp.dest revDir
   cb()
@@ -289,7 +286,7 @@ gulp.task 'build', (cb)->
 
 # Dist
 gulp.task 'dist', (cb)->
-  runSequence 'clean', 'images', 'splash', 'stylus', 'coffee', 'react', 'treat', 'catminlibs', cb
+  runSequence 'clean', 'images', 'splash', 'stylus', 'coffee', 'react', 'catminlibs', 'copyfavicons', 'treat', cb
 
 # Default task
 gulp.task 'default', ['build'], (cb)->

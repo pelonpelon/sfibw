@@ -7,18 +7,15 @@ Col = ReactBootstrap.Col
 bearPassesComponent = (
   <Grid>
       <Row className="show-grid">
-        <Col xs={4}><h4>{'Email'}</h4></Col>
-        <Col xs={4}><h4>{'Facebook'}</h4></Col>
-        <Col xs={4}><h4>{'Twitter'}</h4></Col>
+        <Col xs={12}><h4>{'Gold'}</h4></Col>
       </Row>
-
       <Row className="show-grid">
-        <Col xs={4}><h4>{'Instagram'}</h4></Col>
-        <Col xs={4}><h4>{'Tumblr'}</h4></Col>
-        <Col xs={4}><h4>{'Newsletter'}</h4></Col>
+        <Col xs={12}><h4>{'Platinum'}</h4></Col>
       </Row>
-
+      <Row className="show-grid">
+        <Col xs={12}><h4>{'V.I.P.'}</h4></Col>
+      </Row>
   </Grid>
 )
 
-React.renderComponent bearPassesComponent, $('.bearPasses .content')[0]
+React.renderComponent bearPassesComponent, $('.bearpasses .content')[0]

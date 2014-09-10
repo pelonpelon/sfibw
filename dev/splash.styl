@@ -43,41 +43,6 @@ body
 .text-sf, .text-br, .text-hb, .text-yr, .intro
   opacity: 0
 
-// Home Page
-.home
-  display: block
-  position: absolute
-  top: 70px !important
-  @media $laptop
-    top: 40%
-  width: 100%
-  text-align: center
-  background: transparent
-
-  .text-sf, .text-br, .text-yr
-    line-height: 1em
-    font-size: 1.8em
-    font-family: 'Laila', serif
-    @media $retina
-      font-size: 2em
-    @media $laptop
-      font-size: 3em
-
-  .intro
-    font-size: 1.1em
-    line-height 1.5em
-    text-align: left
-    margin: 3%
-    font-weight: 200
-    @media $laptop
-      width: 40%
-      margin: 50px auto
-
-  .text-hb, .text-yr
-    font-size: 1.2em
-    color: $brand
-    font-weight: 600
-
 // Common page styles
 
 .page-title
@@ -94,11 +59,59 @@ body
   width:  100%
   opacity: 0;
   position: absolute
-  top: 50px
+  top: 0
   left: 0
   background: url('./content/images/fur.png') repeat
   .content
     width: 100%
     height: 100%
+    max-width: 600px
+    margin: 0 auto
+    line-height: 0.8em
+    .container
+      max-width: 600px
+      margin-left: auto
+      margin-right: auto
+     
+// Home Page
+.home
+  .content
+    display: block
+    width: 100%
+    margin: 60px auto 0 auto
+    padding: 0 3%
+    @media $laptop
+      margin: 120px auto 0 auto
+    text-align: center
+    background: transparent
+
+    .text-sf, .text-br, .text-yr
+      line-height: 100%
+      font-size: 200%
+      font-family: 'Laila', serif
+      @media $retina
+        font-size: 2em
+      @media $laptop
+        font-size: 3em
+    .text-yr
+      color: $text-special 
+
+    .intro
+      margin: 4% auto
+      @media $laptop
+        margin: 10% auto
+      padding: 0 4%
+      font-size: 1.1em
+      @media $laptop
+        font-size: 1.4em
+      line-height 140%
+      text-align: left
+      font-weight: 200
+
+    .text-hb, .text-yr
+      font-size: 1.2em
+      color: $brand
+      font-weight: 600
+
 
 

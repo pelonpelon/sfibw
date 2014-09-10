@@ -19,7 +19,7 @@ toBeAnimated.forEach (el)->
 AnimationChain = ()->
   console.log "ANIMATING"
 
-  interval = 20
+  interval = 25
   setTimeout ()->
     textsf.classList.add 'fadeInUp'
   ,interval
@@ -46,14 +46,14 @@ LoadComponents = ->
 reactinterval = setInterval(LoadComponents, 50)
 
 ApplyFastClick = ->
-  if window.fastClick?
+  if window.FastClick?
 
-    window.fastClick.attach(document.body)
-    console.log "applied applyFastClick"
+    fc = window.FastClick.attach(document.body)
+    console.log "applied FastClick to: "+fc.layer
 
     clearInterval fastclickinterval
 
-fastclickinterval = setInterval(ApplyFastClick 50)
+fastclickinterval = setInterval(ApplyFastClick, 50)
 
 StartApp = ->
   console.log "inside dl"
@@ -68,6 +68,7 @@ StartApp = ->
   element = document.createElement "script"
   element.src = "libs.js"
   document.body.appendChild element
+
 
 if  window.addEventListener
   window.addEventListener "load", StartApp, false
