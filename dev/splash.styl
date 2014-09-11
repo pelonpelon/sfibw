@@ -30,19 +30,6 @@ body
   height: 100%
   background: url('./content/images/fur.png') repeat
 
-  .text-hb
-    display: none
-  color: $highlight
-  >.content
-
-    display: flex
-    flex-direction: column
-    justify-content: center
-    flex: 1
-
-.text-sf, .text-br, .text-hb, .text-yr, .intro
-  opacity: 0
-
 // Common page styles
 
 .page-title
@@ -63,6 +50,7 @@ body
   left: 0
   background: url('./content/images/fur.png') repeat
   .content
+    color: $highlight
     width: 100%
     height: 100%
     max-width: 600px
@@ -72,7 +60,7 @@ body
       max-width: 600px
       margin-left: auto
       margin-right: auto
-     
+
 // Home Page
 .home
   .content
@@ -85,7 +73,10 @@ body
     text-align: center
     background: transparent
 
-    .text-sf, .text-br, .text-yr
+    .text-sf, .text-br, .text-hb, .text-yr, .intro
+      opacity: 0
+    .text-sf, .text-br
+      color: $highlight
       line-height: 100%
       font-size: 200%
       font-family: 'Laila', serif
@@ -93,10 +84,15 @@ body
         font-size: 2em
       @media $laptop
         font-size: 3em
-    .text-yr
-      color: $text-special 
+
+    .text-hb, .text-yr
+      font-size: 1.2em
+      color: $text-special
+      color: $brand
+      font-weight: 600
 
     .intro
+      color: $highlight
       margin: 4% auto
       @media $laptop
         margin: 10% auto
@@ -107,11 +103,4 @@ body
       line-height 140%
       text-align: left
       font-weight: 200
-
-    .text-hb, .text-yr
-      font-size: 1.2em
-      color: $brand
-      font-weight: 600
-
-
 

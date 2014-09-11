@@ -8,7 +8,7 @@ transportationComponent = (
   <Grid>
       <Row className="show-grid">
         <Col xs={6}><h4>{'Homobile'}</h4></Col>
-        <Col xs={6}><h4>{'Über'}</h4></Col>
+        <Col xs={6}><h4>{'\u00DCber'}</h4></Col>
       </Row>
 
       <Row className="show-grid">

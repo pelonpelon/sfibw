@@ -8,8 +8,8 @@ key = 1
 
 renderTabbedArea = ->
   scheduleComponent = (
-      <TabbedArea defaultActiveKey={key}>
-        <TabPane key={1} tab="Thursday 12">
+      <TabbedArea defaultActiveKey={key} animation={false}>
+        <TabPane key={1} tab="Thursday 12" animation={false}>
 
         <Panel header={<h3>Early Registration/MeetnGreet</h3>}>
            <h4>5pm-9pm</h4>
@@ -38,7 +38,7 @@ renderTabbedArea = ->
           <h4>'til the wee hours</h4>
         </Panel>
 
-        <Panel header={<h3>B\'Eros at Eros</h3>}>
+        <Panel header={<h3>B'Eros at Eros</h3>}>
           <h4></h4>
         </Panel>
 

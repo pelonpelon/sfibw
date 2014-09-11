@@ -146,7 +146,7 @@ gulp.task 'jsx', ->
 
 # React
 gulp.task 'react',['cjsx', 'jsx'], ->
-  gulp.src [tmpDir+'*jsx.js'], base: devDir
+  gulp.src [tmpDir+'jsx.js', tmpDir+'cjsx.js'], base: devDir
     .pipe concat 'components.js'
     .pipe gulp.dest buildDir
 
@@ -280,13 +280,18 @@ gulp.task 'cleanrev', ->
   gulp.src [revDir], read: false
     .pipe gp.clean force: true
 
+# Copy Misc Files
+gulp.task 'copymisc', ->
+  gulp.src [devDir+'offline.manifest'], base: devDir
+    .pipe gulp.dest buildDir
+
 # Build
 gulp.task 'build', (cb)->
-  runSequence 'cleanbuild', 'images', 'splash', 'stylus', 'coffee', 'react', 'catlibs', cb
+  runSequence 'cleanbuild', 'images', 'splash', 'stylus', 'coffee', 'react', 'catlibs', 'copymisc', cb
 
 # Dist
 gulp.task 'dist', (cb)->
-  runSequence 'clean', 'images', 'splash', 'stylus', 'coffee', 'react', 'catminlibs', 'copyfavicons', 'treat', cb
+  runSequence 'clean', 'images', 'splash', 'stylus', 'coffee', 'react', 'catminlibs', 'copyfavicons', 'copymisc', 'treat', cb
 
 # Default task
 gulp.task 'default', ['build'], (cb)->
@@ -310,7 +315,7 @@ gulp.task 'rsyncwww', ->
   log remotePath
   rsync
     ssh: true
-    src: revDir
+    src: prodDir
     dest: 'sfeagleftp@sf-eagle.com:'+remotePath
     recursive: true
     syncDest: true
@@ -359,6 +364,10 @@ gulp.task 'watch', ['connect'], ->
           task2 = 'stylus'
           task3 = 'catlibs'
         else if file is 'defaults.styl'
+          task1 = 'splash'
+          task2 = 'stylus'
+          task3 = 'catlibs'
+        else if dir is 'anim'
           task1 = 'splash'
           task2 = 'stylus'
           task3 = 'catlibs'

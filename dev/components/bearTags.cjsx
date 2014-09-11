@@ -1,10 +1,10 @@
-console.log "inside bearPasses"
+console.log "inside bearTags"
 
 Grid = ReactBootstrap.Grid
 Row = ReactBootstrap.Row
 Col = ReactBootstrap.Col
 
-bearPassesComponent = (
+bearTags = (
   <Grid>
       <Row className="show-grid">
         <Col xs={12}><h4>{'Gold'}</h4></Col>
@@ -18,4 +18,4 @@ bearPassesComponent = (
   </Grid>
 )
 
-React.renderComponent bearPassesComponent, $('.bearpasses .content')[0]
+React.renderComponent bearTags, $('.beartags .content')[0]

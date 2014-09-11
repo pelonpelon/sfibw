@@ -80,15 +80,18 @@ mainMenuComponent = (
       inverse={false}
       fluid={true}
       onToggle={fadeContent}
+      defaultNavExpanded={true}
+      navExpanded={true}
       brand={<a href="http://sf-eagle.com/sfibw/lab/index.html"></a>}
     >
-      <Nav key={"Home"} collapsable>
+      <Nav key={"Home"}>
         <NavItem key={"Home"} href="#" className="navitem-home" onSelect={switchView}>Home</NavItem>
         <NavItem key={"Schedule"} href="#" className="navitem-schedule" onSelect={switchView}>Schedule</NavItem>
-        <NavItem key={"BearPasses"} href="#" className="navitem-bearpasses" onSelect={switchView}>BearPasses</NavItem>
+        <NavItem key={"Connect"} href="#" className="navitem-connect" onSelect={switchView}>Connect</NavItem>
+        <NavItem key={"BearTags"} href="#" className="navitem-beartags" onSelect={switchView}>Bear Tags</NavItem>
+        <NavItem key={"SpecialDeals"} href="#" className="navitem-specialdeals" onSelect={switchView}>Special Deals</NavItem>
         <NavItem key={"Lodging"} href="#" className="navitem-lodging" onSelect={switchView}>Lodging</NavItem>
         <NavItem key={"Transportation"} href="#" className="navitem-transportation" onSelect={switchView}>Transportation</NavItem>
-        <NavItem key={"Connect"} href="#" className="navitem-connect" onSelect={switchView}>Connect</NavItem>
       </Nav>
     </Navbar>
 

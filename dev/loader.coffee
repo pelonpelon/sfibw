@@ -1,6 +1,28 @@
 console.log "loading loader"
 
 window = this
+###
+# Update appcache (REMOVE THIS WHEN SITE IS STABLE)
+appCache = window.applicationCache
+appCache.update() # Attempt to update the user's cache.
+
+if appCache.status == window.applicationCache.UPDATEREADY
+  appCache.swapCache()  # The fetch was successful, swap in the new cache.
+
+# Check if a new cache is available on page load.
+window.addEventListener('load', (e)->
+
+  window.applicationCache.addEventListener('updateready', (e)->
+    if window.applicationCache.status == window.applicationCache.UPDATEREADY
+      # Browser downloaded a new app cache.
+      if confirm('A new version of this site is available. Load it?')
+        window.location.reload()
+    else
+      #Manifest didn't changed. Nothing new to server.
+  ,false)
+
+,false)
+###
 
 main = document.getElementsByClassName('main')[0]
 home = main.getElementsByClassName('home')[0]
@@ -19,7 +41,7 @@ toBeAnimated.forEach (el)->
 AnimationChain = ()->
   console.log "ANIMATING"
 
-  interval = 25
+  interval = 30
   setTimeout ()->
     textsf.classList.add 'fadeInUp'
   ,interval
@@ -27,11 +49,18 @@ AnimationChain = ()->
     textbr.classList.add 'fadeInUp'
   ,interval*20
   setTimeout ()->
-    textyr.classList.add 'fadeInUp'
+    texthb.classList.add 'fadeInUp'
   ,interval*40
   setTimeout ()->
     intro.classList.add 'fadeIn'
   ,interval*60
+  setTimeout ()->
+    texthb.classList.remove 'fadeInUp'
+    texthb.classList.add 'fadeOutRightBig'
+  ,interval*130
+  setTimeout ()->
+    textyr.classList.add 'fadeInLeftBig'
+  ,interval*100
 
 LoadComponents = ->
   if window.$? && window.React? && window.ReactBootstrap?

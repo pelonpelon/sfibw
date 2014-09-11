@@ -1,0 +1,47 @@
+.transportation
+  .container
+    margin: 0 auto
+    @media $laptop
+      max-width: 420px !important
+  .content
+    margin: 70px auto 20px auto
+    @media $laptop
+      margin: 0
+      max-width: initial
+    max-width: 600px
+    @media $laptop
+      margin-top: 120px
+    .row
+      margin: 0 auto
+    .icon
+      color: transparent
+      padding: 30px 10%
+    .icon.email
+      sprite($email)
+    .icon.facebook
+      sprite($facebook)
+    .icon.twitter
+      sprite($twitter)
+    .icon.googleplus
+      sprite($googleplus)
+    .icon.instagram
+      sprite($instagram)
+    .icon.tumblr
+      sprite($tumblr)
+    .newsletter
+      color: $text-special
+      font-weight: 200
+      font-size: 1.2em
+      line-height: 1.2em
+      @media $laptop
+        font-size: 1.4em
+        line-height: 1.2em
+      margin-top: 15px
+      @media $laptop
+        margin-top: 50px
+      input[type=submit]
+        background-color: $theme-dark
+        color: $text-special
+        border-radius: 50px
+        border: 2px solid $theme-light
+
