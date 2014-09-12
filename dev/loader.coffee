@@ -61,6 +61,27 @@ AnimationChain = ()->
   setTimeout ()->
     textyr.classList.add 'fadeInLeftBig'
   ,interval*100
+  mq = window.matchMedia('(min-width: 800px)')
+  console.log mq
+  setTimeout ()->
+    console.log 'setting timeout'
+    if mq.matches
+      console.log 'mq.matches'
+
+      news = document.getElementsByClassName('news')[0]
+      news.classList.add 'animated'
+      news.classList.add 'fadeInLeftBig'
+
+      db = document.getElementsByClassName('dancing-bear')[0]
+      db.setAttribute('src', 'dancing-bear-polar.gif?' + Math.random())
+      db.style.display = 'block'
+      db.classList.add 'animated'
+      db.classList.add 'animated'
+      db.classList.add 'zoomInUp'
+      db.style.opacity = 1
+
+  ,interval*120
+
 
 LoadComponents = ->
   if window.$? && window.React? && window.ReactBootstrap?
@@ -98,6 +119,9 @@ StartApp = ->
   element.src = "libs.js"
   document.body.appendChild element
 
+  # element = document.createElement "script"
+  # element.src = "https://maps.googleapis.com/maps/api/js"
+  # document.body.appendChild element
 
 if  window.addEventListener
   window.addEventListener "load", StartApp, false

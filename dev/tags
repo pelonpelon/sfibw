@@ -5,9 +5,9 @@
 !_TAG_PROGRAM_URL	https://github.com/lukaszkorecki/CoffeeTags	/GitHub repository/
 !_TAG_PROGRAM_VERSION	0.2.1	//
 AnimationChain	loader.coffee	/^AnimationChain = ()->$/;"	f	lineno:41	object:window	type:function
-ApplyFastClick	loader.coffee	/^ApplyFastClick = ->$/;"	f	lineno:77	object:window	type:function
-LoadComponents	loader.coffee	/^LoadComponents = ->$/;"	f	lineno:65	object:window	type:function
-StartApp	loader.coffee	/^StartApp = ->$/;"	f	lineno:87	object:window	type:function
+ApplyFastClick	loader.coffee	/^ApplyFastClick = ->$/;"	f	lineno:98	object:window	type:function
+LoadComponents	loader.coffee	/^LoadComponents = ->$/;"	f	lineno:86	object:window	type:function
+StartApp	loader.coffee	/^StartApp = ->$/;"	f	lineno:108	object:window	type:function
 defer	splash/splash.coffee	/^defer = (cb, global)->$/;"	f	lineno:49	object:window	type:function
 downloadJSAtOnload	splash/splash.coffee	/^downloadJSAtOnload = ->$/;"	f	lineno:58	object:window	type:function
 gsap	splash/splash.coffee	/^gsap = ->$/;"	f	lineno:97	object:window	type:function

@@ -61,7 +61,7 @@ gulp.task 'splash-coffee', ->
     .pipe gulp.dest tmpDir
 
 gulp.task 'splash-jade', ->
-  gulp.src devDir+'index.jade'
+  gulp.src devDir+'**/*.jade', base: devDir
     .pipe gp.changed buildDir, {extension: '.html'}
     .pipe gp.jade
       locals:
@@ -99,12 +99,12 @@ gulp.task 'css', ['stylus'],  ->
 
 # coffee
 gulp.task 'coffee', ->
-  gulp.src devDir+'views/**/*.coffee', base: devDir
+  gulp.src devDir+'**/*.coffee', base: devDir
     .pipe gp.changed buildDir, {extension: '.js'}
     .pipe coffee(
       bare: true
     ).on 'error', gutil.log
-    .pipe gulp.dest buildDir
+    .pipe gulp.dest tmpDir+'libs/'
 
 # jade
 gulp.task 'jade', ->
@@ -135,18 +135,18 @@ gulp.task 'cjsx', ->
       bare: true
     ).on 'error', gutil.log
     .pipe concat 'cjsx.js'
-    .pipe gulp.dest tmpDir
+    .pipe gulp.dest tmpDir+'components/'
 
 # jsx
 gulp.task 'jsx', ->
   gulp.src devDir+'components/**/*.jsx', base: devDir
     .pipe gp.react()
     .pipe concat 'jsx.js'
-    .pipe gulp.dest tmpDir
+    .pipe gulp.dest tmpDir+'components/'
 
 # React
-gulp.task 'react',['cjsx', 'jsx'], ->
-  gulp.src [tmpDir+'jsx.js', tmpDir+'cjsx.js'], base: devDir
+gulp.task 'react',['coffee', 'cjsx', 'jsx'], ->
+  gulp.src [tmpDir+'components/**.*'], base: devDir
     .pipe concat 'components.js'
     .pipe gulp.dest buildDir
 
@@ -282,7 +282,10 @@ gulp.task 'cleanrev', ->
 
 # Copy Misc Files
 gulp.task 'copymisc', ->
-  gulp.src [devDir+'offline.manifest'], base: devDir
+  gulp.src [
+    devDir+'offline.manifest'
+    devDir+'content/dancing-bear-polar.gif'
+  ], base: devDir
     .pipe gulp.dest buildDir
 
 # Build

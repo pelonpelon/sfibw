@@ -7,6 +7,9 @@ Panel = ReactBootstrap.Panel
 Glyphicon = ReactBootstrap.Glyphicon
 Label = ReactBootstrap.Label
 
+
+gmap = document.getElementsByClassName('gmap')
+
 specialDealsComponent = (
 
     <Panel className="mainPanel">
@@ -18,12 +21,18 @@ specialDealsComponent = (
         <Accordion>
           <h3>SOMA</h3>
           <Panel header="Triptych" bsStyle={'danger'} key={1}>
-            <img className="logo" src="https://triptych.cloudlgs.com/members/triptych/avatar/thumbs/thumbnail_1354826155.jpg" />
+            <a className="logo" href="http://www.triptychsf.com/index.php" target="_blank">
+              <img src="https://triptych.cloudlgs.com/members/triptych/avatar/thumbs/thumbnail_1354826155.jpg" />
+              Website
+            </a>
             <ul className="info">
               <li>20% off your meal<br />(except on Valentines Day)</li>
-              <li><a href="http://www.triptychsf.com/index.php" target="_blank">Website</a></li>
-              <li>Phone Number: {"415-703-0557"}</li>
+              <li>1155 Folsom Street</li>
+              <li>{"415-703-0557"}</li>
             </ul>
+            <a className="gmap" href="https://www.google.com/maps/place/Triptych/@37.7757,-122.408905" target="_blank">
+              <img className="triptych-gmap" src="//maps.googleapis.com/maps/api/staticmap?center=37.7757,-122.408905&zoom=13&size=100x100&markers=color:blue%7Csize:mid%7C37.7757,-122.408905&key=AIzaSyD8bNm6pzIcqUgTstR4iwwWtdPEFwL9Qv4" />
+            </a>
           </Panel>
           <Panel header="Restaurant #2" key={2}>
 

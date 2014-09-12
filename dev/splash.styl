@@ -56,7 +56,7 @@ body
     max-width: 600px
     margin: 0 auto
     line-height: 0.8em
-    .container
+    .container, .container-fluid
       max-width: 600px
       margin-left: auto
       margin-right: auto
@@ -70,6 +70,8 @@ body
     padding: 0 3%
     @media $laptop
       margin: 120px auto 0 auto
+      padding: 0
+      max-width: 40%
     text-align: center
     background: transparent
 
@@ -103,4 +105,17 @@ body
       line-height 140%
       text-align: left
       font-weight: 200
+
+.dancing-bear
+  display: none
+  opacity: 0
+  position: absolute
+  bottom: 50px
+  right: 50px
+  width: 143px
+  height: 218px
+  background: url('./content/dancing-bear-polar.gif') no-repeat
+  z-index: 102
+  @require 'anim/zoomInUp'
+
 
