@@ -20,15 +20,14 @@ specialDealsComponent = (
 
         <Accordion>
           <h3>SOMA</h3>
-          <Panel header="Triptych" bsStyle={'danger'} key={1}>
-            <a className="logo" href="http://www.triptychsf.com/index.php" target="_blank">
-              <img src="https://triptych.cloudlgs.com/members/triptych/avatar/thumbs/thumbnail_1354826155.jpg" />
-              Website
-            </a>
+          <Panel className="triptych" header="Triptych" bsStyle={'danger'} key={1}>
+            <a className="logo icon" href="http://www.triptychsf.com/index.php" target="_blank"></a>
             <ul className="info">
               <li>20% off your meal<br />(except on Valentines Day)</li>
               <li>1155 Folsom Street</li>
-              <li>{"415-703-0557"}</li>
+              <li>
+                <a href="tel:+14157030557">{'415-703-0557'}</a>
+              </li>
             </ul>
             <a className="gmap" href="https://www.google.com/maps/place/Triptych/@37.7757,-122.408905" target="_blank">
               <img className="triptych-gmap" src="//maps.googleapis.com/maps/api/staticmap?center=37.7757,-122.408905&zoom=13&size=100x100&markers=color:blue%7Csize:mid%7C37.7757,-122.408905&key=AIzaSyD8bNm6pzIcqUgTstR4iwwWtdPEFwL9Qv4" />

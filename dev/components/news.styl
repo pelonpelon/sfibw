@@ -10,9 +10,48 @@
     padding: 50px 0 0 10px
     max-width: 25%
     .panel
+      width: 224px
+      overflow: hidden
+      height: 400px
       background-color: transparent
+      font-family: $text
       color: $text-special
-      h3
-        font-size: 1.6em
-
-
+      border-color: $highlight
+      .panel-body
+        width: 109%
+        overflow-y: scroll
+        height: 400px
+        padding: 5px 10px 15px
+        header
+          font-family: $heading
+          h2
+            font-size: 1.6em
+          h3
+            font-size: 1.2em
+        article
+          font-family: $text           
+.show-news
+  display: block
+  position: absolute
+  top: 60px
+  left: 10px
+  margin-right: 10px
+  z-index: 201
+  background-color: $theme-dark
+  border-width: 1px
+  border-style: solid
+  border-color: transparent
+  overflow-y: scroll
+  .panel
+    border: none
+    background-color: $theme-dark
+    color: $text-special
+    h2
+      font-size: 1.6em
+      font-family: Laila
+    h3
+      font-size: 1.2em
+      font-family: Laila
+    .panel-body
+      padding: 0px 10px 15px
+      font-family: Roboto

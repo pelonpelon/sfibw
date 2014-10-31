@@ -24,7 +24,7 @@ connectComponent = (
         <form>
           <Input type="static" value="
             Sign up for our NEWSLETTER to get the latest updates
-            on Bear Passes, new events, hotel deals and more.
+            on BearTags, new events, hotel deals and more.
           " />
           <Input type="text" placeholder="Name" />
           <Input type="email" placeholder="Email address" />

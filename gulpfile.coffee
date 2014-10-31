@@ -162,15 +162,26 @@ gulp.task 'compressImages', ->
     .pipe gulp.dest tmpDir+'compressed'
   return stream
 
-# resizeIcons
+### resizeIcons
 gulp.task 'resizeIcons', ->
   stream = gulp.src [devDir+'content/icons/*.{png,jpg,jpeg,gif}']
     .pipe resize
       format: 'png'
-      width: 50
-      height: 50
-      crop: true
-      upscale: false
+      width: 80
+      height: 80
+      crop: false
+      upscale: true
+    .pipe gulp.dest tmpDir+'icons'
+  return stream
+###
+
+gulp.task 'resizeIcons', ->
+  size = {width: 60, height: 60}
+  stream = gulp.src [devDir+'content/icons/*.{png,jpg,jpeg,gif}']
+    .pipe gp.gm (gmfile)->
+      gmfile.resize(size.width, size.height + ">")
+        .gravity('Center')
+        .extent(size.width, size.height)
     .pipe gulp.dest tmpDir+'icons'
   return stream
 
@@ -318,7 +329,7 @@ gulp.task 'rsyncwww', ->
   log remotePath
   rsync
     ssh: true
-    src: prodDir
+    src: revDir
     dest: 'sfeagleftp@sf-eagle.com:'+remotePath
     recursive: true
     syncDest: true
@@ -359,7 +370,12 @@ gulp.task 'watch', ['connect'], ->
     log 'path: '+fullpath
     switch ext
       when '.jade'
-        task1 = 'jade'
+        if file is 'news.jade'
+          task1 = 'splash-jade'
+          task2 = 'react'
+          task3 = 'coffee'
+        else
+          task1 = 'jade'
       when '.styl'
         log "in styl"
         if file is 'splash.styl'
@@ -396,8 +412,10 @@ gulp.task 'watch', ['connect'], ->
           task3 = 'catlibs'
       when '.jsx'
         task1 = 'react'
+        task2 = 'coffee'
       when '.cjsx'
         task1 = 'react'
+        task2 = 'coffee'
       when '.jpg', '.jpeg', '.png', '.gif'
         task1 = 'images'
       else

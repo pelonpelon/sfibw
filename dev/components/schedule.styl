@@ -22,6 +22,7 @@
         width: 20%
         >a
           font-size: 0.9em
+          font-weight: 400 
           @media $laptop
             font-size: 1.1em
           line-height: 1.4em 
@@ -33,9 +34,9 @@
     .nav-tabs>li.active>a:hover
       background-color: transparent
       border: transparent
-      border-bottom: red solid
+      border-bottom: $clickme solid
       color: $text-special
-      font-weight: 600 
+      font-weight: 400 
     .tab-content
       margin-top: 90px
       @media $laptop
@@ -45,7 +46,17 @@
       margin-bottom: 0
       margin-top: 1px
     .panel-default>.panel-heading
-      color: $text-special
       background-color: $theme-dark
       border-color: $theme-light
       text-align: left
+      padding-right: 4px
+    .panel-title
+      font-size: 1.1em
+      font-weight: 300
+      color: $text-special
+      span:nth-child(2)
+        float: right
+        font-family: Laila
+        font-size: .8em
+        color: $highlight
+

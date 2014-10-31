@@ -57,7 +57,7 @@ AnimationChain = ()->
   setTimeout ()->
     texthb.classList.remove 'fadeInUp'
     texthb.classList.add 'fadeOutRightBig'
-  ,interval*130
+  ,interval*150
   setTimeout ()->
     textyr.classList.add 'fadeInLeftBig'
   ,interval*100
@@ -76,7 +76,6 @@ AnimationChain = ()->
       db.setAttribute('src', 'dancing-bear-polar.gif?' + Math.random())
       db.style.display = 'block'
       db.classList.add 'animated'
-      db.classList.add 'animated'
       db.classList.add 'zoomInUp'
       db.style.opacity = 1
 
@@ -86,7 +85,7 @@ AnimationChain = ()->
 LoadComponents = ->
   if window.$? && window.React? && window.ReactBootstrap?
 
-    console.log "loading menu"
+    console.log "loading components"
     element = document.createElement "script"
     element.src = "components.js"
     document.body.appendChild element
@@ -98,6 +97,7 @@ reactinterval = setInterval(LoadComponents, 50)
 ApplyFastClick = ->
   if window.FastClick?
 
+    console.log "loading FastClick"
     fc = window.FastClick.attach(document.body)
     console.log "applied FastClick to: "+fc.layer
 
@@ -118,10 +118,6 @@ StartApp = ->
   element = document.createElement "script"
   element.src = "libs.js"
   document.body.appendChild element
-
-  # element = document.createElement "script"
-  # element.src = "https://maps.googleapis.com/maps/api/js"
-  # document.body.appendChild element
 
 if  window.addEventListener
   window.addEventListener "load", StartApp, false

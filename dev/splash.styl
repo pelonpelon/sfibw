@@ -5,13 +5,32 @@
 @require $bootstrap+"utilities"
 @require $bootstrap+"type"
 
+// @font-face
+  // font-family: 'Roboto';
+  // font-style: normal;
+  // font-weight: 400;
+  // src: url(http://fonts.gstatic.com/s/roboto/v13/Hgo13k-tfSpn0qi1SFdUfbO3LdcAZYWl9Si6vvxL-qU.woff)
 @font-face
-   font-family Laila
-   font-style normal
-   src url(http://fonts.gstatic.com/s/laila/v1/JBUIIJj0-G2GVTwQf-wy0qCWcynf_cDxXwCLxiixG1c.woff)
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: url(http://fonts.gstatic.com/s/robotocondensed/v12/b9QBgL0iMZfDSpmcXcE8nMrfajfqx5pse9BUPMmpr-I.woff)
+@font-face
+  font-family: 'Laila';
+  font-style: normal;
+  font-weight: 400;
+  src: url(http://fonts.gstatic.com/s/laila/v1/JBUIIJj0-G2GVTwQf-wy0qCWcynf_cDxXwCLxiixG1c.woff)
+// @font-face
+   // font-family Laila
+   // font-style normal
+   // src url(http://fonts.gstatic.com/s/laila/v1/JBUIIJj0-G2GVTwQf-wy0qCWcynf_cDxXwCLxiixG1c.woff)
 
 html
   background: $background
+  background: url('./content/images/fur.png') repeat
+  width: 100%
+  height: 100%
+
 
 body
   box-sizing: border-box
@@ -44,11 +63,11 @@ body
   display: none
   flex 1
   width:  100%
+  height: 100%
   opacity: 0;
   position: absolute
   top: 0
   left: 0
-  background: url('./content/images/fur.png') repeat
   .content
     color: $highlight
     width: 100%
@@ -66,7 +85,7 @@ body
   .content
     display: block
     width: 100%
-    margin: 60px auto 0 auto
+    margin: 70px auto 0 auto
     padding: 0 3%
     @media $laptop
       margin: 120px auto 0 auto
@@ -74,48 +93,71 @@ body
       max-width: 40%
     text-align: center
     background: transparent
+    border: none
 
     .text-sf, .text-br, .text-hb, .text-yr, .intro
       opacity: 0
     .text-sf, .text-br
       color: $highlight
-      line-height: 100%
-      font-size: 200%
-      font-family: 'Laila', serif
+      line-height: 0.8
+      HeadingSmallCaps(2em)
       @media $retina
         font-size: 2em
       @media $laptop
-        font-size: 3em
+        font-size: 4.8em
 
     .text-hb, .text-yr
-      font-size: 1.2em
+      font-size: 1.1em
+      line-height: 1.6em
       color: $text-special
-      color: $brand
-      font-weight: 600
+      font-weight: 400
+      @media $laptop
+        font-size: 1.2em
 
     .intro
+      font-family: $text
       color: $highlight
-      margin: 4% auto
+      margin: 0 auto 0 auto
       @media $laptop
         margin: 10% auto
       padding: 0 4%
       font-size: 1.1em
       @media $laptop
         font-size: 1.4em
-      line-height 140%
+      line-height 150%
       text-align: left
-      font-weight: 200
+      font-weight: 400
+.footer
+  @media $laptop
+    display: none
+  position: fixed
+  bottom: 0
+  width: 100%
+  height: 40px
+  z-index: 301
+  background-color: transparent
+  .btn,
+  .btn:focus,
+  .btn:hover,
+  .btn:active
+    float: right
+    background: $text-special
+    color: $theme-dark
+    margin: 0 3px
+    border-color: red
+
 
 .dancing-bear
-  display: none
-  opacity: 0
-  position: absolute
-  bottom: 50px
-  right: 50px
-  width: 143px
-  height: 218px
-  background: url('./content/dancing-bear-polar.gif') no-repeat
-  z-index: 102
-  @require 'anim/zoomInUp'
+  @media $laptop
+    display: none
+    opacity: 0
+    position: absolute
+    bottom: 50px
+    right: 50px
+    width: 143px
+    height: 218px
+    background: url('./content/dancing-bear-polar.gif') no-repeat
+    z-index: 102
+    @require 'anim/zoomInUp'
 
 

@@ -13,11 +13,14 @@
       .notice
         text-align: center
         font-weight: 400
-        font-size: 12px
-        margin-bottom: 20px
+        font-size: 13px
+        margin: 3px 0 20px 0
         color: $text-special
         strong
-          color: #A74240
+          color: $danger-dark
+          background-color: $danger
+          padding: 0 2px;
+          border-radius: 3px;
       .panel-body
         padding: 0
         .nav-pills>li.active>a,
@@ -27,8 +30,8 @@
           background-color: $theme-dark
         .tab-pane
           .panel-danger>.panel-heading
-            color: #5F0403
-            background-color: #DDAAAA;
+            color: $danger-dark
+            background-color: $danger
           h3
             font-size: 1.2em
             line-height: 0.5
@@ -38,10 +41,9 @@
           .panel-body
             >.logo
               float: right
-              text-align: center
+              margin: 0 20px
               img
                 display: block
-                padding: 10px
                 max-width: 80px
                 max-height: 80px
             .gmap
@@ -60,4 +62,7 @@
                 line-height: 1.1
                 color: $text-dark
 
+  .triptych
+    .logo
+      sprite($triptych)
 

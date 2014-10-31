@@ -6,11 +6,9 @@ NavItem = ReactBootstrap.NavItem
 main = $('.main')
 $('.main .content').addClass('animated')
 toggle = $('.navbar-toggle')
+ft = $('.footer')
 
-fadeContent = (e)->
-
-  console.log "evt: "+e
-  console.log e
+fadeContent = ()->
 
   # collapse = $('.collapse')
   collapse = document.getElementsByTagName('nav')[1]
@@ -45,6 +43,15 @@ fadeContent = (e)->
 currentKey = "home"
 switchView = (key)->
 
+  # mark item as .active
+  items = $('.navbar-nav')
+  items
+    .find('.active')
+    .removeClass('active')
+  items
+    .find('.navitem-'+key.toLowerCase()+' a')
+    .addClass('active')
+
   toggle = $('.navbar-toggle').css('display')
   console.log "toggle: "+toggle
   if toggle != "none"
@@ -55,23 +62,20 @@ switchView = (key)->
       title.addClass('fadeOut').remove()
 
     brand = $('.navbar-brand')
-    brand.after "<div class='navbar-title' style='opacity:0'>"+key+"</div>"
+    brand.after "<div class='navbar-title' style='opacity:0'>"+$('.menu .active').text()+"</div>"
     $('.navbar-title').addClass 'animated fadeIn'
-
-  # mark item as .active
-  items = $('.navbar-nav')
-  items
-    .find('.active')
-    .removeClass('active')
-  items
-    .find('.navitem-'+key.toLowerCase()+' a')
-    .addClass('active')
 
   $('.'+currentKey).removeClass 'animated fadeIn'
   $('.'+currentKey).addClass('animated fadeOut').css('display', 'none')
   $('.'+key.toLowerCase()).removeClass 'animated fadeOut'
   $('.'+key.toLowerCase()).css('display', 'block').addClass 'animated fadeIn'
   currentKey = key.toLowerCase()
+
+  mq = window.matchMedia('(min-width: 800px)')
+  if currentKey is 'home' and !mq.matches
+    ft.show()
+  else
+    ft.hide()
 
 mainMenuComponent = (
     <Navbar
@@ -85,13 +89,13 @@ mainMenuComponent = (
       brand={<a href="http://sf-eagle.com/sfibw/lab/index.html"></a>}
     >
       <Nav key={"Home"}>
-        <NavItem key={"Home"} href="#" className="navitem-home" onSelect={switchView}>Home</NavItem>
-        <NavItem key={"Schedule"} href="#" className="navitem-schedule" onSelect={switchView}>Schedule</NavItem>
-        <NavItem key={"Connect"} href="#" className="navitem-connect" onSelect={switchView}>Connect</NavItem>
-        <NavItem key={"BearTags"} href="#" className="navitem-beartags" onSelect={switchView}>Bear Tags</NavItem>
-        <NavItem key={"SpecialDeals"} href="#" className="navitem-specialdeals" onSelect={switchView}>Special Deals</NavItem>
-        <NavItem key={"Lodging"} href="#" className="navitem-lodging" onSelect={switchView}>Lodging</NavItem>
-        <NavItem key={"Transportation"} href="#" className="navitem-transportation" onSelect={switchView}>Transport</NavItem>
+        <NavItem key={"home"} href="#" className="navitem-home" onSelect={switchView}>home</NavItem>
+        <NavItem key={"schedule"} href="#" className="navitem-schedule" onSelect={switchView}>schedule</NavItem>
+        <NavItem key={"connect"} href="#" className="navitem-connect" onSelect={switchView}>connect</NavItem>
+        <NavItem key={"beartags"} href="#" className="navitem-beartags" onSelect={switchView}>bear tags</NavItem>
+        <NavItem key={"specialdeals"} href="#" className="navitem-specialdeals" onSelect={switchView}>special deals</NavItem>
+        <NavItem key={"lodging"} href="#" className="navitem-lodging" onSelect={switchView}>lodging</NavItem>
+        <NavItem key={"transportation"} href="#" className="navitem-transportation" onSelect={switchView}>transport</NavItem>
       </Nav>
     </Navbar>
 
